@@ -1,0 +1,16 @@
+<% layout('boilerplate') -%>
+<div class='container'>
+		<div class='row' style='padding-top:40px'>
+			<div class="col-md-3 col-md-offset-4" ng-controller='loginCtrl'>
+				<h3>Login</h3>
+				<form name='loginForm'>
+					<div class='alert alert-warning' ng-show='hasMessage'> {{message}} </div>
+					<label>Username: <input id='username' type='text' ng-model='username'/></label><br/>
+					<label>Password: <input id='password' type='password' ng-model='password'/></label><br/>
+					<button id='submit' class='btn login'   ng-disabled='!loginForm.$dirty' ng-click='login()'>login <i class="fa fa-exclamation"></i></button>
+					<button  class='btn btn-info' ng-click='open()' >Sign up</a>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
