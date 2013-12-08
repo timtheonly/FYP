@@ -38,6 +38,7 @@ var io = socket.listen(server);
 server.listen(9000);
 
 console.log('Express server listening on port 9000');
+
 // Routes
 //dynamically include all routes
 fs.readdirSync('./routes').forEach(function(filename){
@@ -47,6 +48,7 @@ fs.readdirSync('./routes').forEach(function(filename){
   }
 });
 
+//handle 404 erros
 app.use(function(req, res,next){
   res.render(404,'404');
 });
