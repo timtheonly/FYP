@@ -5,10 +5,12 @@
 				<h3>Login</h3>
 				<form name='loginForm'>
 					<div class='alert alert-warning' ng-show='hasMessage'> {{message}} </div>
-					<label>Username: <input id='username' type='text' ng-model='username'/></label><br/>
-					<label>Password: <input id='password' type='password' ng-model='password'/></label><br/>
-					<button id='submit' class='btn login'   ng-disabled='!loginForm.$dirty' ng-click='login()'>login <i class="fa fa-exclamation"></i></button>
-					<button  class='btn btn-info' ng-click='open()' >Sign up</a>
+						<input class='form-control' type='text' ng-model='username'placeholder='username'/>
+						<input class='form-control' type='password' ng-model='password' placeholder='password'/><br/>
+						<button id='submit' class='btn btn-success btn-block btn-lg'   ng-disabled='!loginForm.$dirty' ng-click='login()'>
+								login <i class="fa fa-exclamation"></i>
+						</button>
+						<button  class='btn btn-info btn-block' ng-click='open()' >Sign up</button>
 				</form>
 			</div>
 		</div>
