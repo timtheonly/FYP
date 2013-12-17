@@ -4,3 +4,5 @@ public
 .sass-cache
 app/bower_components
 heroku
+test/spec/mocha.css
+test/spec/mocha.js

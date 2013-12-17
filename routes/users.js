@@ -4,8 +4,8 @@ require('../models/User');
 
 module.exports.setup = function(app, mongoose){
 	/*
-	* User routes
-	*/
+	 * User routes
+	 */
 	var User = mongoose.model('User');
 	var baseUrl = '/users';
 	app.post(baseUrl+'/login', function(req,res){
