@@ -6,3 +6,4 @@ app/bower_components
 heroku
 test/spec/mocha.css
 test/spec/mocha.js
+app/styles/bootstrap.css
