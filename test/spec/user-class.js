@@ -16,6 +16,10 @@ afterEach(function(done){
 	});
 });
 
+after(function(done){
+	mongoose.disconnect(done);
+});
+
 describe('#class User', function(){
 
 
@@ -71,23 +75,13 @@ describe('#class User', function(){
 		});
 	});
 
-	it('should not authenicate a user with incorrect username', function(done){
-		var user = new User({
-			name:'daniel',
-			username:'daniel',
-			password:'hello',
-			admin: true,
-			email:'blah@blah.com'
-		});
 
-		user.save(function(err){
-			if(err) {throw err;}
-			User.authenicate('daiel', 'hello', function(err, authUser){
+	it('should not authenicate a non existant user',function(done){
+		User.authenicate('daiel', 'hello', function(err, authUser){
 				expect(err).to.equal(1);
 				expect(authUser).to.be.null;
 				done();
-			});
 		});
-
 	});
 });
+

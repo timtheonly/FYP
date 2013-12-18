@@ -1,14 +1,19 @@
 'use strict'
 
-var bcrypt = require('bcrypt');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var pollSchema({
-	question: String,
-	answers:[String],
-	creator:Schema.Types.ObjectId,
-	open: Boolean
+var pollSchema = new Schema({
+	question: {type: String, required:true},
+	session: Schema.Types.ObjectId,
+	answers:{type:[String], required:true},
+	creator: {type:Schema.Types.ObjectId, required:true},
+	open: Boolean,
+
 },{collection:'poll'});
 
-mongoose.model('User', pollSchema);
+/*pollSchema.statics.getGlobalPolls = function(){
+
+};*/
+
+mongoose.model('poll', pollSchema);
