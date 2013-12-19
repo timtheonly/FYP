@@ -12,8 +12,11 @@ var pollSchema = new Schema({
 
 },{collection:'poll'});
 
-/*pollSchema.statics.getGlobalPolls = function(){
-
-};*/
+pollSchema.statics.listAllGlobals = function(callback){
+	this.find({session:null},function(err,polls){
+		if(err){callback(err);}
+		callback(null,polls);
+	})
+};
 
 mongoose.model('poll', pollSchema);
