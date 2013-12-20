@@ -16,7 +16,20 @@ pollSchema.statics.listAllGlobals = function(callback){
 	this.find({session:null},function(err,polls){
 		if(err){callback(err);}
 		callback(null,polls);
-	})
+	});
 };
 
+pollSchema.statics.setOpen = function(ID,callback){
+	this.update({_id:ID},{$set:{open:true}},function(err,numAffected){
+		if(err){return callback(err);}
+		return callback(null, numAffected);
+	});
+};
+
+pollSchema.statics.setClosed = function(ID,callback){
+	this.update({_id:ID},{$set:{open:true}},function(err,numAffected){
+		if(err){return callback(err);}
+		return callback(null, numAffected);
+	});
+};
 mongoose.model('poll', pollSchema);
