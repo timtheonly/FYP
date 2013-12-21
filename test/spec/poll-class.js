@@ -90,5 +90,16 @@ describe('#class Poll', function(){
 			done();
 		});
 	});
+
+	it('should allow the addition of an answer',function(done){
+		console.log(myPoll.answers);
+		myPoll.addAnswer('whom',function(err){
+			if(err){done(err);}
+			console.log(['you', 'me', 'us', 'them','whom']);
+			console.log(myPoll.answers);
+			expect(myPoll.answers).to.equal(['you', 'me', 'us', 'them','whom']);
+			done();
+		});
+	});
 });
 
