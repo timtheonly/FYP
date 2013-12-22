@@ -40,4 +40,6 @@ pollSchema.methods.addAnswer =function(answer,callback){
 		callback();
 	});
 };
+
+
 mongoose.model('poll', pollSchema);
