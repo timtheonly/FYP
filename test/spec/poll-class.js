@@ -78,6 +78,7 @@ describe('#class Poll', function(){
 	it('should allow a poll to be opened by ID',function(done){
 		Poll.setOpen(ID,function(err,numAffected){
 			if(err){done(err);}
+			expect(myPoll.open).to.be.true;
 			expect(numAffected).to.equal(1);
 			done();
 		});
@@ -86,6 +87,7 @@ describe('#class Poll', function(){
 	it('should allow a poll to be closed by ID',function(done){
 		Poll.setClosed(ID,function(err,numAffected){
 			if(err){done(err);}
+			expect(myPoll.open).to.be.false;
 			expect(numAffected).to.equal(1);
 			done();
 		});
