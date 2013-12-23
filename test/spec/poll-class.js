@@ -97,9 +97,8 @@ describe('#class Poll', function(){
 		console.log(myPoll.answers);
 		myPoll.addAnswer('whom',function(err){
 			if(err){done(err);}
-			console.log(['you', 'me', 'us', 'them','whom']);
 			console.log(myPoll.answers);
-			expect(myPoll.answers).to.equal(['you', 'me', 'us', 'them','whom']);
+			expect(myPoll.answers.toString()).to.equal(['you', 'me', 'us', 'them','whom'].toString());
 			done();
 		});
 	});
