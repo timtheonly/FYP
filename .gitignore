@@ -9,3 +9,4 @@ heroku
 test/spec/mocha.css
 test/spec/mocha.js
 app/styles/bootstrap.css
+/poll-test.js

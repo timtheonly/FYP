@@ -7,6 +7,8 @@ var Poll = mongoose.model('poll');
 var myPoll;
 var ID;
 
+
+
 beforeEach(function(done){
 	myPoll = new Poll({
 			question: 'who am i',
@@ -94,10 +96,8 @@ describe('#class Poll', function(){
 	});
 
 	it('should allow the addition of an answer',function(done){
-		console.log(myPoll.answers);
 		myPoll.addAnswer('whom',function(err){
 			if(err){done(err);}
-			console.log(myPoll.answers);
 			expect(myPoll.answers.toString()).to.equal(['you', 'me', 'us', 'them','whom'].toString());
 			done();
 		});

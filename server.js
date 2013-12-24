@@ -48,7 +48,7 @@ fs.readdirSync('./routes').forEach(function(filename){
   }
 });
 
-//handle 404 erros
+//handle 404 error
 app.use(function(req, res,next){
   res.render(404,'404');
 });

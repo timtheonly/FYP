@@ -20,16 +20,22 @@ pollSchema.statics.listAllGlobals = function(callback){
 };
 
 pollSchema.statics.setOpen = function(ID,callback){
-	this.update({_id:ID},{$set:{open:true}},function(err,numAffected){
-		if(err){return callback(err);}
-		return callback(null, numAffected);
-	});
+		this.update({_id:ID},{$set:{open:true}},function(err,numAffected){
+			if(err){
+				throw err;
+				return;
+			}
+			callback(null, numAffected);
+		});
 };
 
 pollSchema.statics.setClosed = function(ID,callback){
-	this.update({_id:ID},{$set:{open:false}},function(err,numAffected){
-		if(err){return callback(err);}
-		return callback(null, numAffected);
+		this.update({_id:ID},{$set:{open:false}},function(err,numAffected){
+		if(err){
+			throw err;
+			return;
+		}
+		callback(null, numAffected);
 	});
 };
 
