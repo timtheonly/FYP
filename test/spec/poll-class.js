@@ -78,19 +78,19 @@ describe('#class Poll', function(){
 	});
 
 	it('should allow a poll to be opened by ID',function(done){
-		Poll.setOpen(ID,function(err,numAffected){
+		Poll.setOpen(ID,function(err,poll){
 			if(err){done(err);}
+			myPoll = poll;
 			expect(myPoll.open).to.be.true;
-			expect(numAffected).to.equal(1);
 			done();
 		});
 	});
 
 	it('should allow a poll to be closed by ID',function(done){
-		Poll.setClosed(ID,function(err,numAffected){
+		Poll.setClosed(ID,function(err,poll){
 			if(err){done(err);}
+			myPoll = poll;
 			expect(myPoll.open).to.be.false;
-			expect(numAffected).to.equal(1);
 			done();
 		});
 	});
