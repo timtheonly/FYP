@@ -8,7 +8,7 @@ var pollSchema = new Schema({
 	session: Schema.Types.ObjectId,
 	answers:[String],
 	creator: {type:Schema.Types.ObjectId, required:true},
-	open: Boolean,
+	open: Boolean
 
 },{collection:'poll'});
 
