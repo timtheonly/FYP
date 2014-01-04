@@ -9,3 +9,5 @@ var sessionSchema = new Schema({
 	creator: {type:Schema.Types.ObjectId, required:true},
 	open: Boolean
 },{collection:'session'});
+
+mongoose.model('session', sessionSchema);
