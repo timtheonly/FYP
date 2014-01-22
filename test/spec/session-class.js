@@ -12,7 +12,8 @@ beforeEach(function(done){
 		name:'my session',
 		tags:['super','awesome', 'session'],
 		creator: new mongoose.Types.ObjectId,
-		open:true
+		open:true,
+		poll:null
 	});
 
 	mySession.save(done);
@@ -46,6 +47,16 @@ describe('#class Session', function(){
 		});
 	});
 
-	it('should allow a poll to be added');
+	it('should allow a poll to be added',function(done){
+		var pollId = new mongoose.Types.ObjectId;
+		mySession.addPoll(pollId,function(err){
+			if(err){done(err);}
+			expect(mySession.poll).to.equal(pollId);
+			done();
+		});
+	});
+
+	it('should allow a session to be opened by id');
+	it('should allow a session to be closed by id');
 
 });
