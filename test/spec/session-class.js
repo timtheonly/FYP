@@ -56,7 +56,21 @@ describe('#class Session', function(){
 		});
 	});
 
-	it('should allow a session to be opened by id');
-	it('should allow a session to be closed by id');
+	it('should allow a session to be opened by id',function(done){
+		Session.setOpen(mySession._id, function(err,session){
+			if(err){done(err);}
+			mySession = session;
+			expect(mySession.open).to.be.true;
+			done();
+		});
+	});
+	it('should allow a session to be closed by id',function(done){
+			Session.setClosed(mySession._id, function(err,session){
+			if(err){done(err);}
+			mySession = session;
+			expect(mySession.open).to.be.false;
+			done();
+		});
+	});
 
 });

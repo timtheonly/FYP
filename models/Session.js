@@ -12,6 +12,28 @@ var sessionSchema = new Schema({
 },{collection:'session'});
 
 
+sessionSchema.statics.setOpen = function(ID,callback){
+	this.findOne({_id:ID}, function(err, session){
+		if(err){callback(err);}
+		session.open = true;
+		session.save(function(err){
+			if(err){callback(err);}
+			callback(null,session);
+		});
+	});
+};
+
+sessionSchema.statics.setClosed = function(ID,callback){
+	this.findOne({_id:ID}, function(err, session){
+		if(err){callback(err);}
+		session.open = false;
+		session.save(function(err){
+			if(err){callback(err);}
+			callback(null,session);
+		});
+	});
+};
+
 sessionSchema.methods.addTag = function(tag,callback){
 	this.tags.push(tag);
 	this.save(callback);
