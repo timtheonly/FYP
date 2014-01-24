@@ -8,6 +8,8 @@ module.exports.setup = function(app, mongoose){
 	 */
 	var User = mongoose.model('User');
 	var baseUrl = '/users';
+
+	//authenicate the user
 	app.post(baseUrl+'/login', function(req,res){
 		User.authenicate(req.body.username, req.body.password, function(err, data){
 				if(err)
@@ -34,7 +36,7 @@ module.exports.setup = function(app, mongoose){
 			});
 	});
 
-
+	//logout the user
 	app.get(baseUrl+'/logout',function(req,res){
 		if(req.session.user)
 		{
@@ -43,6 +45,7 @@ module.exports.setup = function(app, mongoose){
 		res.redirect('/');
 	});
 
+	//create a new user
 	app.post(baseUrl, function(req,res){
 		var user = new User({
 			name: req.body.name,
