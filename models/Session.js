@@ -23,6 +23,10 @@ sessionSchema.statics.setOpen = function(ID,callback){
 	});
 };
 
+sessionSchema.statics.getAll = function(callback){
+	this.find({},callback);
+};
+
 sessionSchema.statics.setClosed = function(ID,callback){
 	this.findOne({_id:ID}, function(err, session){
 		if(err){callback(err);}

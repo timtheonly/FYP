@@ -46,6 +46,14 @@ describe('#class Session', function(){
 			done();
 		});
 	});
+	
+	it('should allow all sessions to be listed',function(done){
+		Session.getAll(function(err,sessions){
+			if(err){done(err);}
+			expect(sessions.length).to.equal(1);
+			done();
+		});
+	});
 
 	it('should allow a poll to be added',function(done){
 		var pollId = new mongoose.Types.ObjectId;
@@ -64,6 +72,7 @@ describe('#class Session', function(){
 			done();
 		});
 	});
+
 	it('should allow a session to be closed by id',function(done){
 			Session.setClosed(mySession._id, function(err,session){
 			if(err){done(err);}
