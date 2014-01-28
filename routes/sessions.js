@@ -18,16 +18,26 @@ module.exports.setup = function(app, mongoose){
 		});
 	});
 
-	//get 
+	//get single session
 	app.get(baseUrl +'/:id',function(req,res){
 		Session.findOne({_id:req.params.id},function(err,session){
-			
-			if(err){throw err;}
+			if(err){
 
-			if(session !== null){
-				res.send(session);
-			}else{
-				res.send('session not found');
+				/*
+				*	check for castErrors, means that mongoose cannot parse the passed 
+				*	ID.	
+				*/
+				if(err.name === 'CastError'){
+					res.send('session not found');
+				}
+				else{throw err;}
+
+			}else{//if no errors pass back the session
+				if(session !== null){
+					res.send(session);
+				}else{
+					res.send('session not found');
+				}
 			}
 		});
 	});
