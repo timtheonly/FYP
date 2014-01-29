@@ -42,6 +42,32 @@ module.exports.setup = function(app, mongoose){
 		});
 	});
 
+	//add a poll to a session
+	app.post(baseUrl + '/:id/poll/:pollid',function(req,res){
+		Session.findOne({_id:req.params.id},function(err,session){
+			if(err){
+				/*
+				*	check for castErrors, means that mongoose cannot parse the passed 
+				*	ID.	
+				*/
+				if(err.name === 'CastError'){
+					res.send('session not found');
+				}
+				else{throw err;}
+
+			}else{//if no error attach a poll to the session
+				if(session !== null){
+					session.addPoll(function(err){
+						if(err){throw err;}
+						res.send('poll added');
+					});
+				}else{
+					res.send('session not found');
+				}
+			}
+		});
+	});
+
 	 //create a new session
 	app.post(baseUrl,function(req,res){
 		res.send('hello');
