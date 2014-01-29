@@ -70,6 +70,49 @@ module.exports.setup = function(app, mongoose){
 
 	 //create a new session
 	app.post(baseUrl,function(req,res){
-		res.send('hello');
+		//validate the data before inserting it into the db
+
+		//taken from https://github.com/mongodb/js-bson/blob/master/lib/bson/objectid.js
+		var objectIDRegex = new RegExp('^[0-9a-fA-F]{24}$');
+		var pass = true;
+		var tempSession;
+
+		pass = objectIDRegex.test(req.body.creator);
+		pass = typeof(req.body.tags !== 'Array');
+
+		if(req.body.poll)
+		{
+			pass = objectIDRegex.test(req.body.poll);
+			if(pass)//handle case where session may be created with a poll attached
+			{
+				tempSession = new Session({
+					name: req.body.name,
+					tags: req.body.tags,
+					open: req.body.open,
+					creator: mongoose.Types.objectid(req.body.creator),
+					poll: mongoose.Types.objectid(req.body.poll)
+				});
+				
+				tempSession.save(function(err){
+					if(err){throw err;}
+					res.send('session created');
+				});
+			}
+		}
+
+		if(pass && !req.body.poll)
+		{
+			tempSession = new Session({
+				name: req.body.name,
+				tags: req.body.tags,
+				open: req.body.open,
+				creator: mongoose.Types.objectid(req.body.creator),
+				poll: null
+			});
+
+			tempSession.save(function(err){
+				if(err){throw err;}
+				res.send('session created');
+			});
+		}
 	});
-};
