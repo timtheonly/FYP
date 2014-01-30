@@ -52,6 +52,7 @@ userSchema.methods.verifyPassword = function(inputPassword, callback){
  *	@param {string} the users pasword unencrypted
  *	@param {function} callback when finished
  * 	Comment: could really use enums for error types
+ *  further Comment: enums not available in JavaScript	
  */
 userSchema.statics.authenicate = function(username, password, callback){
 	this.findOne({username: username},function(err, user){
