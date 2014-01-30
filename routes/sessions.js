@@ -106,7 +106,7 @@ module.exports.setup = function(app, mongoose){
 				name: req.body.name,
 				tags: req.body.tags,
 				open: req.body.open,
-				creator: mongoose.Types.objectid(req.body.creator),
+				creator: mongoose.Types.ObjectId(req.body.creator),
 				poll: null
 			});
 
@@ -116,3 +116,18 @@ module.exports.setup = function(app, mongoose){
 			});
 		}
 	});
+
+	app.put(baseUrl+'/:id/open/',function(req,res){
+		Session.setOpen(req.params.id, function(err, session){
+			if(err){throw err;}
+			res.send('session opened');
+		});
+	});
+
+	app.put(baseUrl+'/:id/close/',function(req,res){
+		Session.setClosed(req.params.id, function(err, session){
+			if(err){throw err;}
+			res.send('session closed');
+		});
+	});
+};
