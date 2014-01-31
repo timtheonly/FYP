@@ -52,6 +52,15 @@ sessionSchema.statics.setClosed = function(ID,callback){
 	});
 };
 
+/*
+ * delete the given Session
+ * @param {string} session id
+ *
+ */
+sessionSchema.statics.delete = function(ID,callback){
+	this.remove({_id:ID},callback);
+}
+
 
 /*
  * list all sessions

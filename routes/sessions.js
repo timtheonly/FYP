@@ -118,16 +118,23 @@ module.exports.setup = function(app, mongoose){
 	});
 
 	app.put(baseUrl+'/:id/open/',function(req,res){
-		Session.setOpen(req.params.id, function(err, session){
+		Session.setOpen(req.params.id, function(err){
 			if(err){throw err;}
 			res.send('session opened');
 		});
 	});
 
 	app.put(baseUrl+'/:id/close/',function(req,res){
-		Session.setClosed(req.params.id, function(err, session){
+		Session.setClosed(req.params.id, function(err){
 			if(err){throw err;}
 			res.send('session closed');
+		});
+	});
+
+	app.delete(baseUrl+'/:id/', function(req,res){
+		Session.delete(req.params.id, function(err){
+			if(err){throw err;}
+			res.send('session deleted');
 		});
 	});
 };
