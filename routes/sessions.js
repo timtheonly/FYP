@@ -43,6 +43,9 @@ module.exports.setup = function(app, mongoose){
 	});
 
 	//add a poll to a session
+	/*
+	 * todo: add session id to poll
+	 */
 	app.post(baseUrl + '/:id/poll/:pollid',function(req,res){
 		Session.findOne({_id:req.params.id},function(err,session){
 			if(err){
@@ -80,7 +83,7 @@ module.exports.setup = function(app, mongoose){
 		pass = objectIDRegex.test(req.body.creator);
 		pass = typeof(req.body.tags !== 'Array');
 
-		if(req.body.poll)
+		if(req.body.poll)//handle sesssions with polls differently
 		{
 			pass = objectIDRegex.test(req.body.poll);
 			if(pass)//handle case where session may be created with a poll attached
@@ -100,7 +103,7 @@ module.exports.setup = function(app, mongoose){
 			}
 		}
 
-		if(pass && !req.body.poll)
+		if(pass && !req.body.poll)//handle sessions that done have a poll
 		{
 			tempSession = new Session({
 				name: req.body.name,
@@ -117,6 +120,7 @@ module.exports.setup = function(app, mongoose){
 		}
 	});
 
+	//open a session
 	app.put(baseUrl+'/:id/open/',function(req,res){
 		Session.setOpen(req.params.id, function(err){
 			if(err){throw err;}
@@ -124,6 +128,7 @@ module.exports.setup = function(app, mongoose){
 		});
 	});
 
+	//close a session
 	app.put(baseUrl+'/:id/close/',function(req,res){
 		Session.setClosed(req.params.id, function(err){
 			if(err){throw err;}
@@ -131,6 +136,7 @@ module.exports.setup = function(app, mongoose){
 		});
 	});
 
+	//delete a session
 	app.delete(baseUrl+'/:id/', function(req,res){
 		Session.delete(req.params.id, function(err){
 			if(err){throw err;}

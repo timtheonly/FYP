@@ -24,6 +24,17 @@ pollSchema.statics.listAllGlobals = function(callback){
 };
 
 
+/*  List all polls
+ *	@param {Function} callback
+ */
+pollSchema.statics.listAll = function(callback){
+	this.find({},function(err,polls){
+		if(err){callback(err);}
+		callback(null,polls);
+	});
+};
+
+
 /*  set the specified poll to open
  *	@param {Function} callback
  *  @param {String} ID
