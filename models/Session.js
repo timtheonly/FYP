@@ -59,7 +59,7 @@ sessionSchema.statics.setClosed = function(ID,callback){
  */
 sessionSchema.statics.delete = function(ID,callback){
 	this.remove({_id:ID},callback);
-}
+};
 
 
 /*

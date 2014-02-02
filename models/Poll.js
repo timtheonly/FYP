@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
@@ -9,7 +9,6 @@ var pollSchema = new Schema({
 	answers:[String],
 	creator: {type:Schema.Types.ObjectId, required:true},
 	open: Boolean
-
 },{collection:'poll'});
 
 
@@ -80,6 +79,15 @@ pollSchema.methods.addAnswer =function(answer,callback){
 		if(err){callback(err);}
 		callback();
 	});
+};
+
+/*
+ * delete the given Poll
+ * @param {string} session id
+ *
+ */
+pollSchema.statics.delete = function(ID,callback){
+	this.remove({_id:ID},callback);
 };
 
 
