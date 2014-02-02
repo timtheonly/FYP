@@ -44,9 +44,9 @@ module.exports.setup = function(app, mongoose){
 
 	//add a poll to a session
 	/*
-	 * todo: add session id to poll
+	 * todo: possibly refactor so this is only done in the poll route
 	 */
-	app.post(baseUrl + '/:id/poll/:pollid',function(req,res){
+	app.put(baseUrl + '/:id/poll/:pollid',function(req,res){
 		Session.findOne({_id:req.params.id},function(err,session){
 			if(err){
 				/*
@@ -92,8 +92,8 @@ module.exports.setup = function(app, mongoose){
 					name: req.body.name,
 					tags: req.body.tags,
 					open: req.body.open,
-					creator: mongoose.Types.objectid(req.body.creator),
-					poll: mongoose.Types.objectid(req.body.poll)
+					creator: mongoose.Types.Objectid(req.body.creator),
+					poll: mongoose.Types.Objectid(req.body.poll)
 				});
 				
 				tempSession.save(function(err){
