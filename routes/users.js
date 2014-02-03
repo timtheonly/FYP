@@ -64,4 +64,16 @@ module.exports.setup = function(app, mongoose){
 		});
 		
 	});
+
+	app.delete(baseUrl+'/:username',function(req,res){
+		User.delete(req.params.username,function(err){
+			if(err){
+				res.send('opps there was a problem');
+				return console.log(err);
+			}else{
+				res.send('ok');
+			}
+
+		});
+	});
 };

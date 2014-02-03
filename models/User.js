@@ -78,4 +78,8 @@ userSchema.statics.authenicate = function(username, password, callback){
 	});
 };
 
+userSchema.statics.delete = function(usr,callback){
+	this.remove({username: usr},callback);
+};
+
 mongoose.model('User', userSchema);
