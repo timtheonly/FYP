@@ -98,7 +98,7 @@ module.exports.setup = function(app, mongoose){
 				
 				tempSession.save(function(err){
 					if(err){throw err;}
-					res.send('session created');
+					res.send(tempSession._id);
 				});
 			}
 		}
@@ -115,7 +115,7 @@ module.exports.setup = function(app, mongoose){
 
 			tempSession.save(function(err){
 				if(err){throw err;}
-				res.send('session created');
+				res.send(tempSession._id);
 			});
 		}
 	});
