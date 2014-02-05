@@ -77,7 +77,7 @@ module.exports.setup = function(app, mongoose){
 
 				tempPoll.save(function(err){
 					if(err){throw err;}
-					res.send('poll created');
+					res.send(tempPoll._id);
 				});
 			}
 		}
@@ -94,7 +94,7 @@ module.exports.setup = function(app, mongoose){
 
 			tempPoll.save(function(err){
 				if(err){throw err;}
-				res.send('poll created');
+				res.send(tempPoll._id);
 			});
 		}
 	});
