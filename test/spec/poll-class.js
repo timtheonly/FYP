@@ -28,7 +28,7 @@ beforeEach(function(done){
 			answers: ['you', 'me', 'us', 'them'],
 			creator: new mongoose.Types.ObjectId,
 			open: false,
-	});
+		});
 
 	myPoll.save(function(err){
 			if(err) {throw err;}
@@ -96,8 +96,9 @@ describe('#class Poll', function(){
 	});
 
 	it('should allow the addition of an answer',function(done){
-		myPoll.addAnswer('whom',function(err){
+		Poll.addAnswer('whom',ID,function(err, poll){
 			if(err){done(err);}
+			myPoll = poll;
 			expect(myPoll.answers.toString()).to.equal(['you', 'me', 'us', 'them','whom'].toString());
 			done();
 		});

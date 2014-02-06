@@ -17,7 +17,12 @@ module.exports.setup = function(app, mongoose){
 			res.send(polls);
 		});
 	});
-
+	app.get(baseUrl+'/:id/',function(req,res){
+		Poll.findOne({_id:req.params.id},function(err,poll){
+			if(err){throw err;}
+			res.send(poll);
+		});
+	});
 	//list all global polls
 	app.get(baseUrl+'/globals',function(req,res){
 		Poll.listAllGlobals(function(err,polls){
@@ -39,6 +44,13 @@ module.exports.setup = function(app, mongoose){
 		Poll.setClosed(req.params.id, function(err){
 			if(err){throw err;}
 			res.send('poll closed');
+		});
+	});
+
+	app.put(baseUrl+'/:id/answer/',function(req,res){
+		Poll.addAnswer(req.body.answer,req.params.id,function(err){
+			if(err){throw err;}
+			res.send('answer added');
 		});
 	});
 

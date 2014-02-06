@@ -73,11 +73,14 @@ pollSchema.statics.setClosed = function(ID,callback){
  *	@param {Function} callback
  *  @param {String} answer
  */
-pollSchema.methods.addAnswer =function(answer,callback){
-	this.answers.push(answer);
-	this.save(function(err){
+pollSchema.statics.addAnswer =function(answer,ID,callback){
+	this.findOne({_id:ID}, function(err, poll){
 		if(err){callback(err);}
-		callback();
+		poll.answers.push(answer);
+		poll.save(function(err){
+			if(err){callback(err);}
+			callback(null,poll);
+		});
 	});
 };
 
