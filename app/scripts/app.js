@@ -6,4 +6,10 @@ angular.module('fypApp', [
   'ngSanitize',
   'ngRoute',
   'ui.bootstrap'
-]);
+]).config(['$routeProvider', function($routeProvider){
+	$routeProvider
+		.when('/sessions',{
+			templateUrl: '../partials/sessions.html',
+			controller:'sessionsCtrl'
+		});
+}]);
