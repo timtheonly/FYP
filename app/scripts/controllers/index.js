@@ -11,7 +11,7 @@ angular.module('fypApp').controller('loginCtrl',['$scope', '$http', '$modal', '$
 				$scope.hasMessage = true;
 				$scope.password ='';
 			}else{
-				$window.location.href = '/app';
+				$window.location.href = '/app#/home';
 			}
 		});
 	};
