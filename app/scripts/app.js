@@ -18,6 +18,7 @@ angular.module('fypApp', [
 			title:'Session'
 		});
 }]).controller('titleCtrl', function($scope,$route){
+	$scope.title = 'Welcome';
 	$scope.$on('$routeChangeSuccess',function(){
 		$scope.title = $route.current.title;
 	});
