@@ -79,7 +79,7 @@ describe('#routes test /user', function(){
 	it('shouldn\'t authenicate a non existant user', function(done){
 		http.post('http://localhost:9000/users/login').
 		send({
-			username:'blah',
+			username:'blah2',
 			password:'blah'
 		}).end(function(err,res){
 			expect(res).to.exist;

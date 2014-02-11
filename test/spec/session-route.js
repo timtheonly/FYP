@@ -11,7 +11,7 @@ describe('#routes test /session', function(){
 	beforeEach(function(done){
 		http.post('http://localhost:9000/session')
 		.send({
-			name: 'supper awesome poll',
+			name: 'supper awesome session',
 			tags: ['blah','blah','blah'],
 			creator:'52e6d0174d61ba401d00004b',
 			open: true
@@ -42,7 +42,7 @@ describe('#routes test /session', function(){
 		http.get('http://localhost:9000/session/'+sessionID+'/')
 			.end(function(err,res){
 				if(err){done(err);}
-				expect(res.body.name).to.equal('supper awesome poll');
+				expect(res.body.name).to.equal('supper awesome session');
 				done();
 			});
 	});

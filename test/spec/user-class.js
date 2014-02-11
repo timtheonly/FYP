@@ -6,7 +6,7 @@ require('../../models/User');
 var User = mongoose.model('User');
 
 before(function(done){
-	mongoose.connect('mongodb://localhost/FYP',done);
+	mongoose.connect('mongodb://localhost/FYP-test',done);
 });
 
 afterEach(function(done){

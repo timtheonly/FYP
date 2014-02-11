@@ -8,10 +8,19 @@
 	<div class='row'>
 		<div class='col-lg-6'>
  			<div class='input-group'>
-  				<input type='text' class='form-control'>
- 				<div>
- 				</div>
+  				<input type='text' class='form-control' ng-model="searchFilter">
+  				<span class='help-block'>search for sessions</span>
 			</div>
 		</div>
 	</div>
+	<div class='row'>
+		<div class='col-lg-6'>
+			<div class='list-group'>
+				<a class='list-group-item' ng-repeat="session in sessions">
+					<h5 class='list-group-item-heading'>{{session.name}}</h5>
+				</a>
+
+			</div>
+ 		</div>
+ 	</div>
 </div>
