@@ -16,8 +16,11 @@
 	<div class='row'>
 		<div class='col-lg-6'>
 			<div class='list-group'>
-				<a class='list-group-item' ng-repeat="session in sessions">
+				<a href='/app#/session/{{session._id}}' class='list-group-item' ng-repeat="session in sessions | filter:searchFilter">
 					<h5 class='list-group-item-heading'>{{session.name}}</h5>
+					<ul class='list-inline'>
+						<li ng-repeat='tag in session.tags'>{{tag}}</li>
+					</ul>
 				</a>
 
 			</div>

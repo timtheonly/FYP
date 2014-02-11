@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('fypApp').controller('sessionsCtrl',function($scope, $http){
-	$http.get('/session').success(function(data, ev){
+	$http.get('/session').success(function(data){
 		$scope.sessions = data;
 	});
 });
