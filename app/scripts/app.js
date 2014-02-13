@@ -5,7 +5,8 @@ angular.module('fypApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'btford.socket-io'
 ]).config(['$routeProvider', function($routeProvider){
 	
 	$routeProvider

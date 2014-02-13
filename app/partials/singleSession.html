@@ -1,1 +1,22 @@
 <h4>{{session.name}}</h4>
+<div class='row'>
+	<div class='col-lg-7'>
+		<div class='questionBox'>
+			<div class='list-group'>
+				<div class='list-group-item' ng-repeat='question in questions'>
+					<h5>{{question.body}}</h5>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class='row'>
+	<div class='col-lg-7'>
+		<div class="input-group">
+			<input type="text" class="form-control" ng-model='questionText'>
+			<span class="input-group-btn">
+				<button class="btn btn-primary" ng-click='ask()' type="button">Ask</button>
+			</span>
+   		 </div>
+	</div>
+</div>
