@@ -39,6 +39,20 @@ server.listen(9000);
 
 console.log('Express server listening on port 9000');
 
+//take care of messages being sent/received
+io.sockets.on('connection', function(socket){
+
+    //send messages 
+    socket.on('send',function(data){
+      socket.broadcast.to(''+data.room).emit('question',data);
+    });
+
+    //select a different room
+    socket.on('room',function(data){
+        socket.join(''+data);
+        console.log('someone joined room: '+ data);
+      });
+  });
 // Routes
 //dynamically include all routes
 fs.readdirSync('./routes').forEach(function(filename){
@@ -49,7 +63,7 @@ fs.readdirSync('./routes').forEach(function(filename){
 });
 
 //handle 404 error
-app.use(function(req, res,next){
+app.use(function(req, res){
   res.render(404,'404');
 });
 
