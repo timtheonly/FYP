@@ -58,7 +58,7 @@ describe('#routes test /user', function(){
 		}).end(function(err,res){
 			expect(res).to.exist;
 			expect(res.status).to.equal(200);
-			expect(res.text).to.equal('ok');
+			expect(res.body).to.be.an('Object');
 			done();
 		});
 	});

@@ -25,12 +25,15 @@ module.exports.setup = function(app, mongoose){
 					
 				}else
 				{
-					var tempUser = {name:data.name,
-						email:data.email,
-						username:data.username
+					req.session.login = true;
+					var tempUser = {
+						name: data.name,
+						username: data.username,
+						_id: data._id,
+						elevated: data.elevated,
+						email: data.email
 					};
-					req.session.user = tempUser;
-					res.send('ok');
+					res.send(tempUser);
 				}
 				
 			});

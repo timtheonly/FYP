@@ -25,7 +25,23 @@ angular.module('fypApp', [
 			title:'Session'
 		});
 
-}]).controller('titleCtrl', function($scope,$route){//a controller to cahnge the page title when the route changes
+}])
+.service('userService',function(){//a service to share all user data accross controllers
+	var user ={};
+
+	return{
+
+		getUser: function(){
+			return user;
+		},
+
+		setUser: function(value){
+			user = value;
+		}
+
+	};
+})
+.controller('titleCtrl', function($scope,$route){//a controller to cahnge the page title when the route changes
 	$scope.title = 'Welcome';
 	$scope.$on('$routeChangeSuccess',function(){
 		$scope.title = $route.current.title;
