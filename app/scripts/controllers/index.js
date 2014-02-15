@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fypApp').controller('loginCtrl',['$scope', '$http', '$modal', '$window','userService', function($scope, $http, $modal, $window, userService){
+angular.module('fypApp').controller('loginCtrl',['$scope', '$http', '$modal', '$window',function($scope, $http, $modal, $window){
 	$scope.hasMessage = false;
 	$scope.login = function(){
 		$http.post('/users/login', {username: $scope.username, password: $scope.password})
@@ -11,7 +11,6 @@ angular.module('fypApp').controller('loginCtrl',['$scope', '$http', '$modal', '$
 				$scope.hasMessage = true;
 				$scope.password ='';
 			}else{
-				userService.setUser(data);
 				$window.location.href = '/app#/home';
 			}
 		});
