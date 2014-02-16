@@ -5,7 +5,7 @@ angular.module('fypApp').controller('loginCtrl',['$scope', '$http', '$modal', '$
 	$scope.login = function(){
 		$http.post('/users/login', {username: $scope.username, password: $scope.password})
 		.success(function(data){
-			if(typeof data === 'string')
+			if(data !== 'ok')
 			{
 				$scope.message = data;
 				$scope.hasMessage = true;

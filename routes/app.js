@@ -4,7 +4,7 @@ module.exports.setup = function(app){
 	*/
 	var urlBase = '/app';
 	app.get(urlBase, function(req, res){
-		if(req.session.login)
+		if(req.session.user)
 		{
 			res.render('app', {title:'Welcome'});
 

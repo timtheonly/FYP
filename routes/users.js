@@ -30,13 +30,22 @@ module.exports.setup = function(app, mongoose){
 						name: data.name,
 						email: data.email,
 						username: data.username,
-						_id: data._id
+						_id: data._id,
+						elevated: data.elevated
 					};
 					req.session.user = tempUser;
 					res.send('ok');
 				}
 				
 			});
+	});
+
+	//send back the users data
+	app.get(baseUrl, function(req,res){
+		if(req.session.user)
+		{
+			res.send(req.session.user);
+		}
 	});
 
 	//logout the user

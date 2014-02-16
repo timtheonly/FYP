@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, $routeParams, socket){
+angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, $routeParams, socket, UserFactory){
+	$scope.elevated = UserFactory.get().elevated;
+	console.log(UserFactory.get());
 	$scope.questions =[];
 
 	$http.get('/session/' +$routeParams.id).success(function(data){
@@ -28,6 +30,5 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
 
 	$scope.$on('socket:question',function(ev,data){
 		$scope.questions.push(data);
-		console.log('received question');
 	});
 });

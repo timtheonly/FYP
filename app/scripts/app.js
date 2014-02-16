@@ -25,7 +25,18 @@ angular.module('fypApp', [
 			title:'Session'
 		});
 
-}])
+}]).factory('UserFactory',function(){
+	var user ={};
+	return{
+		get: function(){
+			return user;
+		},
+
+		set: function(value){
+			angular.copy(value,user);
+		}
+	};
+})
 .controller('titleCtrl', function($scope,$route){//a controller to cahnge the page title when the route changes
 	$scope.title = 'Welcome';
 	$scope.$on('$routeChangeSuccess',function(){

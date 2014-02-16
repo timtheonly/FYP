@@ -1,14 +1,14 @@
 <h4>{{session.name}}</h4>
 <div class='row'>
-	<div class='col-lg-7'>
+	<div class='col-lg-7 col-sm-11 col-xs-10'>
 		<div class='questionBox'>
 			<div class='list-group'>
 				<div class='list-group-item' ng-repeat='question in questions'>
 					<div class='row'>
-						<div class='col-md-5'>
+						<div class='col-md-6 col-xs-6 col-sm-6'>
 							<h5>{{question.body}}</h5>
 						</div>
-						<div class='col-md-offset-5 col-md-1'>
+						<div class='col-md-offset-5 col-xs-offset-4 col-sm-offset-5 col-sm-1 col-md-1 col-xs-1'>
 							{{question.time}}
 						</div>
 					</div>
@@ -16,15 +16,24 @@
 			</div>
 		</div>
 	</div>
+	<div class='col-lg-1 visible-lg'>
+		<p>large screen</p>
+	</div>
+	<div class='col-xs-1 visible-xs'>
+		<p>extra small screen</p>
+	</div>
+	<div class='col-sm-1 visible-sm'>
+		<p>small screen</p>
+	</div>
 </div>
-<div class='row'>
+<div class='row'ng-show='!elevated'>
 	<div class='col-lg-7'>
-		<div class="input-group">
+		<span class='help-block'>Remaining:{{ charsRemaining() }}</span>
+		<div class='input-group'>
 			<input type="text" class="form-control" ng-model='questionText' maxlength='140'>
 			<span class="input-group-btn">
 				<button class="btn btn-primary" ng-click='ask()' type="button">Ask</button>
 			</span>
    		 </div>
-   		 <span class='help-block'>Remaining:{{ charsRemaining() }}</span>
 	</div>
 </div>
