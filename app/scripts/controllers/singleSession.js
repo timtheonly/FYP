@@ -2,11 +2,11 @@
 
 angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, $routeParams, socket, UserFactory){
 	$scope.elevated = UserFactory.get().elevated;
-	console.log(UserFactory.get());
 	$scope.questions =[];
 
 	$http.get('/session/' +$routeParams.id).success(function(data){
 		$scope.session = data;
+		console.log($scope.session);
 		socket.emit('room', $scope.session._id); //emit that this user has joined this session
 	});
 

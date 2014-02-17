@@ -23,6 +23,16 @@ angular.module('fypApp', [
 			templateUrl:'../partials/singleSession.html',
 			controller:'singleSessionCrtl',
 			title:'Session'
+		})
+		.when('/polls',{
+			templateUrl: '../partials/polls.html',
+			controller:'pollsCtrl',
+			title:'Polls'
+		})
+		.when('/poll/:id',{
+			templateUrl:'../partials/singlePoll.html',
+			controller:'singlePollCrtl',
+			title:'Poll'
 		});
 
 }]).factory('UserFactory',function(){

@@ -17,12 +17,14 @@ module.exports.setup = function(app, mongoose){
 			res.send(polls);
 		});
 	});
+
 	app.get(baseUrl+'/:id/',function(req,res){
 		Poll.findOne({_id:req.params.id},function(err,poll){
 			if(err){throw err;}
 			res.send(poll);
 		});
 	});
+
 	//list all global polls
 	app.get(baseUrl+'/globals',function(req,res){
 		Poll.listAllGlobals(function(err,polls){
@@ -47,6 +49,7 @@ module.exports.setup = function(app, mongoose){
 		});
 	});
 
+	//add answer
 	app.put(baseUrl+'/:id/answer/',function(req,res){
 		Poll.addAnswer(req.body.answer,req.params.id,function(err){
 			if(err){throw err;}
@@ -54,6 +57,13 @@ module.exports.setup = function(app, mongoose){
 		});
 	});
 
+	//save a poll response
+	app.put(baseUrl+'/:id/:response',function(req,res){
+		Poll.input(req.body.id,req.body.response,function(err){
+			if(err){throw err;}
+			res.send('response noted');
+		});
+	});
 
 	//delete a poll
 	app.delete(baseUrl+'/:id/',function(req,res){
@@ -66,7 +76,7 @@ module.exports.setup = function(app, mongoose){
 	//create a new poll
 	app.post(baseUrl,function(req,res){
 
-		//taken from https://github.com/mongodb/js-bson/blob/master/lib/bson/objectid.js
+		//regex taken from https://github.com/mongodb/js-bson/blob/master/lib/bson/objectid.js
 		var objectIDRegex = new RegExp('^[0-9a-fA-F]{24}$');
 		var pass = true;
 		var tempPoll;

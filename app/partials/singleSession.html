@@ -16,8 +16,36 @@
 			</div>
 		</div>
 	</div>
-	<div class='col-lg-1 visible-lg'>
-		<p>large screen</p>
+	<div class='col-lg-5 visible-lg'>
+		<div ng-show='elevated'>
+			<div class='panel-group' id='accordion'>
+				<div class='panel panel-default'>
+					<div class='panel-heading'>
+						<h4 class='panel-ttle'><a data-toggle='collapse' data-parent='#accordion' data-target='#collapseOne'>Poll</a></h4>
+					</div>
+					<div id='collapseOne' class='panel-collapse collapse in'>
+						<div class='panel-body'>
+							<div ng-show='session.poll'>
+								<svg></svg>
+							</div>
+							<div ng-show='!session.poll'>
+								<p>No poll attached.Create One in Options</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='panel panel-default'>
+					<div class='panel-heading'>
+						<h4 class='panel-ttle'><a data-toggle='collapse' data-parent='#accordion' data-target='#collapseTwo'>Options</a></h4>
+					</div>
+					<div id='collapseTwo' class='panel-collapse collapse'>
+						<div class='panel-body'>
+							Options
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class='col-xs-1 visible-xs'>
 		<p>extra small screen</p>

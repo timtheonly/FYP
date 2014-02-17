@@ -1,0 +1,26 @@
+<div class='container'>
+
+	<div class='row'>
+		<div class='col-md-2'>
+			<h1>polls</h1>
+		</div>
+	</div>
+	<div class='row'>
+		<div class='col-lg-6'>
+ 			<div class='input-group'>
+  				<input type='text' class='form-control' ng-model="searchFilter">
+  				<span class='help-block'>search for poll</span>
+			</div>
+		</div>
+	</div>
+	<div class='row'>
+		<div class='col-lg-6'>
+			<div class='list-group'>
+				<a href='/app#/poll/{{poll._id}}' class='list-group-item' ng-repeat="poll in polls | filter:searchFilter">
+					<h5 class='list-group-item-heading'>{{poll.question}}</h5>
+				</a>
+
+			</div>
+ 		</div>
+ 	</div>
+</div>

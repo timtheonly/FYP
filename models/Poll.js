@@ -8,7 +8,8 @@ var pollSchema = new Schema({
 	session: Schema.Types.ObjectId,
 	answers:[String],
 	creator: {type:Schema.Types.ObjectId, required:true},
-	open: Boolean
+	open: Boolean,
+	response:[Number]
 },{collection:'poll'});
 
 
@@ -77,6 +78,17 @@ pollSchema.statics.addAnswer =function(answer,ID,callback){
 	this.findOne({_id:ID}, function(err, poll){
 		if(err){callback(err);}
 		poll.answers.push(answer);
+		poll.save(function(err){
+			if(err){callback(err);}
+			callback(null,poll);
+		});
+	});
+};
+
+pollSchema.statics.input = function(response,ID,callback){
+	this.findOne({_id:ID}, function(err, poll){
+		if(err){callback(err);}
+		poll.response[response]++;
 		poll.save(function(err){
 			if(err){callback(err);}
 			callback(null,poll);
