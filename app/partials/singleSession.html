@@ -23,10 +23,11 @@
 					<div class='panel-heading'>
 						<h4 class='panel-ttle'><a data-toggle='collapse' data-parent='#accordion' data-target='#collapseOne'>Poll</a></h4>
 					</div>
-					<div id='collapseOne' class='panel-collapse collapse in'>
+					<div id='collapseOne' class='panel-collapse collapse'>
 						<div class='panel-body'>
 							<div ng-show='session.poll'>
-								<svg></svg>
+								<h3>{{poll.question}}</h3>
+								<svg class='chart' ></svg>
 							</div>
 							<div ng-show='!session.poll'>
 								<p>No poll attached.Create One in Options</p>
