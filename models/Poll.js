@@ -6,7 +6,10 @@ var Schema = mongoose.Schema;
 var pollSchema = new Schema({
 	question: {type: String, required:true},
 	session: Schema.Types.ObjectId,
-	answers:[Object],
+	answers:[{
+		answer:String,
+		response:Number
+	}],
 	creator: {type:Schema.Types.ObjectId, required:true},
 	open: Boolean,
 },{collection:'poll'});
@@ -76,13 +79,14 @@ pollSchema.statics.setClosed = function(ID,callback){
 pollSchema.statics.addAnswer =function(ans,ID,callback){
 	this.findOne({_id:ID}, function(err, poll){
 		if(err){callback(err);}
-		poll.answers.push({answer:ans, responses:0});
+		poll.answers.push({answer:ans, response:0});
 		poll.save(function(err){
 			if(err){callback(err);}
 			callback(null,poll);
 		});
 	});
 };
+
 /*
  * save aresponse for a given Poll
  * @param {string} response (the selected answer)

@@ -13,7 +13,7 @@ beforeEach(function(done){
 	myPoll = new Poll({
 			question: 'who am i',
 			session: new mongoose.Types.ObjectId,
-			answers: ['you', 'me', 'us', 'them'],
+			answers: [{'answer':'you', 'response':0}, {'answer':'me', 'response':0}, {'answer':'us', 'response':0}, {'answer':'them', 'response':0}],
 			creator: new mongoose.Types.ObjectId,
 			open: false,
 		});
@@ -25,7 +25,7 @@ beforeEach(function(done){
 
 	myPoll = new Poll({
 			question: 'who am i',
-			answers: ['you', 'me', 'us', 'them'],
+			answers: [{'answer':'you', 'response':0}, {'answer':'me', 'response':0}, {'answer':'us', 'response':0}, {'answer':'them', 'response':0}],
 			creator: new mongoose.Types.ObjectId,
 			open: false,
 		});
@@ -48,7 +48,7 @@ describe('#class Poll', function(){
 		var maPoll = new Poll({
 			question: 'who am i',
 			session: new mongoose.Types.ObjectId,
-			answers: ['you', 'me', 'us', 'them'],
+			answers:[{'answer':'you', 'response':0}, {'answer':'me', 'response':0}, {'answer':'us', 'response':0}, {'answer':'them', 'response':0}],
 			creator: new mongoose.Types.ObjectId,
 			open: true,
 		});
@@ -99,7 +99,7 @@ describe('#class Poll', function(){
 		Poll.addAnswer('whom',ID,function(err, poll){
 			if(err){done(err);}
 			myPoll = poll;
-			expect(myPoll.answers.toString()).to.equal(['you', 'me', 'us', 'them','whom'].toString());
+			expect(myPoll.answers.length).to.equal(5);
 			done();
 		});
 	});
