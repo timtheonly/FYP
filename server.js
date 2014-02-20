@@ -30,7 +30,12 @@ app.use(express.session({secret:'reallyLongSecret12345355'}));
 app.use(app.router);
 
 
-mongoose = mongoose.connect('mongodb://localhost/FYP');
+mongoose = mongoose.connect('mongodb://localhost/FYP',function(err){
+  if(err){
+    console.log('Error connecting to mongodb!\nIs it running?');
+    process.exit(-1);
+  }
+});
 
 
 var server = http.createServer(app);

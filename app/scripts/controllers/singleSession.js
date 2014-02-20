@@ -31,12 +31,12 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
 			body:$scope.questionText,
 			time:new Date().toTimeString().substr(0,5)
 		};
-		$scope.questions.push(question);
+		$scope.questions.unshift(question);
 		socket.emit('send', question);
 		$scope.questionText ='';
 	};
 
 	$scope.$on('socket:question',function(ev,data){
-		$scope.questions.push(data);
+		$scope.questions.unshift(data);
 	});
 });
