@@ -8,7 +8,8 @@
     "bcrypt": "*",
     "socket.io": "*",
     "ejs-locals": "",
-    "connect": "~2.11.2"
+    "connect": "~2.11.2",
+    "colors": "~0.6.2"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

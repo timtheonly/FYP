@@ -9,7 +9,7 @@ var express = require('express'),
     connect = require('connect'),
     socket = require('socket.io'),
     http = require('http');
-
+require('colors') //for coloured output to the console
 var app = express();
 
 
@@ -32,7 +32,7 @@ app.use(app.router);
 
 mongoose = mongoose.connect('mongodb://localhost/FYP',function(err){
   if(err){
-    console.log('Error connecting to mongodb!\nIs it running?');
+    console.log('Error:'.red + 'connection to mongodb refused!');
     process.exit(-1);
   }
 });
