@@ -6,7 +6,6 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
 
 	$http.get('/session/' +$routeParams.id).success(function(data){
 		$scope.session = data;
-		console.log($scope.session);
 		socket.emit('room', $scope.session._id); //emit that this user has joined this session
 		if($scope.session.poll)
 		{

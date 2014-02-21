@@ -12,37 +12,32 @@ angular.module('fypApp').directive('d3BarGraph',function(){
 		},
 		link:
 		function(scope, element){
-			element.append('<div class="chart"><svg width="'+scope.width+'" height="'+scope.height+'"></svg></div>');
-			scope.$watch('values',function(newVal){
-				if(!newVal){
-					return;
-				}
-				/* Based on example from
-				*  http://nvd3.org/ghpages/discreteBar.html
-				*/
-				nv.addGraph(function(){
-					var chart = nv.models.discreteBarChart()
-					.x(function(d){
-						console.log(d);
-						return d.answer;
-					})
-					.y(function(d){
-						console.log(d);
-						return d.response;
-					})
-					.staggerLabels(true)
-					.showValues(true);
+			element.append('<svg class="chart"width="'+scope.width+'" height="'+scope.height+'"></svg>');
+			/* Based on example from
+			*  http://nvd3.org/ghpages/discreteBar.html
+			*/
+			var chart;
+			nv.addGraph(function(){
+				chart = nv.models.discreteBarChart()
+				.x(function(d){
+					return d.answer;
+				})
+				.y(function(d){
+					return d.response;
+				})
+				.staggerLabels(false)
+				.showValues(false)
+				.width(scope.width)
+				.height(scope.height);
 
-					d3.select('.chart')
-					.datum([
-						{
-							values:newVal
-						}])
-					.call(chart);
+				d3.select('.chart')
+				.datum([
+					{
+						values:[{'answer':'yes', 'response':9}, {'answer':'no', 'response':10}]
+					}])
+				.call(chart);
 
-					nv.utils.windowResize(chart.update);
-					return chart;
-				});
+				return chart;
 			});
 		}
 	};
