@@ -11,3 +11,4 @@ test/spec/mocha.js
 app/styles/bootstrap.css
 /poll-test.js
 nodemon.json
+.idea/
