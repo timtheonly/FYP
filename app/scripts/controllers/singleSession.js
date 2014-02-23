@@ -3,6 +3,7 @@
 angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, $routeParams, socket, UserFactory){
 	$scope.elevated = UserFactory.get().elevated;
 	$scope.questions =[];
+    $scope.graph = 1;
 
 	$http.get('/session/' +$routeParams.id).success(function(data){
 		$scope.session = data;
