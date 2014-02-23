@@ -32,7 +32,6 @@ angular.module('fypApp')
                             return d.response;
                         })
                         .staggerLabels(false)
-                        .showValues(false)
                         .width(scope.width)
                         .tooltips(false)
                         .height(scope.height);
@@ -62,7 +61,7 @@ angular.module('fypApp')
         link:function(scope,element){
             element.append('<svg class="pie" width="'+scope.width+'" height="'+scope.height+'"></svg>');
             /* Based on example from
-             * http://nvd3.org/ghpages/discreteBar.html
+             * http://nvd3.org/ghpages/pie.html
              */
             var chart;
             scope.$watch('values', function(newVal){
@@ -74,9 +73,13 @@ angular.module('fypApp')
                     chart = nv.models.pieChart()
                         .x(function(d){return d.answer;})
                         .y(function(d){ return d.response;})
-                        .tooltips(false)
                         .width(scope.width)
-                        .height(scope.height);
+                        .height(scope.height)
+                        .tooltips(false)
+                        .options({
+                            showControls:false,
+                            showLegend:false
+                        });;
 
                     d3.select('.pie')
                         .datum(scope.values)
@@ -99,7 +102,7 @@ angular.module('fypApp')
             link:function(scope,element){
                 element.append('<svg class="donut" width="'+scope.width+'" height="'+scope.height+'"></svg>');
                 /* Based on example from
-                 * http://nvd3.org/ghpages/discreteBar.html
+                 * hhttp://nvd3.org/ghpages/pie.html
                  */
                 var chart;
                 scope.$watch('values', function(newVal){
@@ -111,10 +114,14 @@ angular.module('fypApp')
                         chart = nv.models.pieChart()
                             .x(function(d){return d.answer;})
                             .y(function(d){ return d.response;})
-                            .tooltips(false)
                             .donut(true)
                             .width(scope.width)
-                            .height(scope.height);
+                            .height(scope.height)
+                            .tooltips(false)
+                            .options({
+                                showControls:false,
+                                showLegend:false
+                            });
 
                         d3.select('.donut')
                             .datum(scope.values)
