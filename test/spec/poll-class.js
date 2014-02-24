@@ -103,5 +103,14 @@ describe('#class Poll', function(){
 			done();
 		});
 	});
+
+    it('should allow the submission of a response', function(done){
+        Poll.input(ID, 'me', function(err,poll){
+            if(err){done(err);}
+            myPoll = poll
+            expect(myPoll.answers[1].response).to.equal(1);
+            done();
+        });
+    });
 });
 

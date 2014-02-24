@@ -3,15 +3,17 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var responseSchema = new Schema({
+        answer:String,
+        response:Number
+});
+
 var pollSchema = new Schema({
 	question: {type: String, required:true},
 	session: Schema.Types.ObjectId,
-	answers:[{
-		answer:String,
-		response:Number
-	}],
+	answers:[responseSchema],
 	creator: {type:Schema.Types.ObjectId, required:true},
-	open: Boolean,
+	open: Boolean
 },{collection:'poll'});
 
 
@@ -88,17 +90,17 @@ pollSchema.statics.addAnswer =function(ans,ID,callback){
 };
 
 /*
- * save aresponse for a given Poll
+ * save a response for a given Poll
  * @param {string} response (the selected answer)
  * @param {string} session id
  */
 pollSchema.statics.input = function(ID,response,callback){
 	this.findOne({_id:ID}, function(err, poll){
 		if(err){callback(err);}
-		for(var ans in poll.answers){
-			if(response === ans.answer)
+		for(var i =0; i < poll.answers.length; i++){
+			if(response === poll.answers[i].answer)
 			{
-				ans.response++;
+                poll.answers[i].response = poll.answers[i].response +1;
 			}
 		}
 		poll.save(function(err){

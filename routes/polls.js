@@ -90,7 +90,7 @@ module.exports.setup = function(app, mongoose){
 			if(pass)//handle case where poll may be created within a session
 			{
 				tempPoll = new Poll({
-					question: req.body.question,
+                    question: req.body.question,
 					session: mongoose.Types.ObjectId(req.body.session),
 					answers: req.body.answers,
 					creator: mongoose.Types.ObjectId(req.body.creator),
@@ -107,7 +107,7 @@ module.exports.setup = function(app, mongoose){
 		if(pass && !req.body.session)//handle case where poll may be created globally
 		{
 			tempPoll = new Poll({
-				question: req.body.question,
+                question: req.body.question,
 				answers: req.body.answers,
 				creator: mongoose.Types.ObjectId(req.body.creator),
 				open: req.body.open,
