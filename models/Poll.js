@@ -92,7 +92,7 @@ pollSchema.statics.addAnswer =function(ans,ID,callback){
  * @param {string} response (the selected answer)
  * @param {string} session id
  */
-pollSchema.statics.input = function(response,ID,callback){
+pollSchema.statics.input = function(ID,response,callback){
 	this.findOne({_id:ID}, function(err, poll){
 		if(err){callback(err);}
 		for(var ans in poll.answers){

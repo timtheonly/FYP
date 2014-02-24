@@ -59,7 +59,7 @@ module.exports.setup = function(app, mongoose){
 
 	//save a poll response
 	app.put(baseUrl+'/:id/:response',function(req,res){
-		Poll.input(req.body.id,req.body.response,function(err){
+		Poll.input(req.params.id,req.params.response,function(err){
 			if(err){throw err;}
 			res.send('response noted');
 		});
