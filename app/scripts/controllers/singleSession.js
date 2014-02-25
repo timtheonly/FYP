@@ -53,7 +53,6 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
                 {
                     $http.get('/poll/' + $scope.session.poll+'/').success(function(data){
                         $scope.poll = data;
-                        console.log('poll refreshed');
                         $scope.PollAnswered = true;
                     });
                 }
