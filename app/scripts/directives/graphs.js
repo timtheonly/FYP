@@ -13,6 +13,7 @@ angular.module('fypApp')
 		},
 		link:
 		function(scope, element){
+            console.log(scope.use);
 			element.append('<svg class="bar" width="'+scope.width+'" height="'+scope.height+'"></svg>');
 			/* Based on example from
 			*  http://nvd3.org/ghpages/discreteBar.html
@@ -36,7 +37,7 @@ angular.module('fypApp')
                         .tooltips(false)
                         .height(scope.height);
 
-                    d3.select('.bar')
+                    d3.selectAll('.bar')
                         .datum([
                             {
                                 values:scope.values
@@ -56,7 +57,8 @@ angular.module('fypApp')
         scope:{
             values :'=',
             width:'=',
-            height:'='
+            height:'=',
+            use:'='
         },
         link:function(scope,element){
             element.append('<svg class="pie" width="'+scope.width+'" height="'+scope.height+'"></svg>');
@@ -79,9 +81,9 @@ angular.module('fypApp')
                         .options({
                             showControls:false,
                             showLegend:false
-                        });;
+                        });
 
-                    d3.select('.pie')
+                    d3.selectAll('.pie')
                         .datum(scope.values)
                         .call(chart);
 
@@ -97,7 +99,8 @@ angular.module('fypApp')
             scope:{
                 values :'=',
                 width:'=',
-                height:'='
+                height:'=',
+                use:'='
             },
             link:function(scope,element){
                 element.append('<svg class="donut" width="'+scope.width+'" height="'+scope.height+'"></svg>');
@@ -123,7 +126,7 @@ angular.module('fypApp')
                                 showLegend:false
                             });
 
-                        d3.select('.donut')
+                        d3.selectAll('.donut')
                             .datum(scope.values)
                             .call(chart);
 

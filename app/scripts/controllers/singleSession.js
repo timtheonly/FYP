@@ -4,6 +4,11 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
 	$scope.elevated = UserFactory.get().elevated;
 	$scope.questions =[];
     $scope.graph = 1;
+    $scope.PollAnswered = false;
+    /* used to resolve a scope error created by ng-repeat
+     * see: https://github.com/angular/angular.js/issues/1100
+     */
+    $scope.response = {val:1};
 
 	$http.get('/session/' +$routeParams.id).success(function(data){
 		$scope.session = data;
@@ -39,4 +44,19 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
 	$scope.$on('socket:question',function(ev,data){
 		$scope.questions.unshift(data);
 	});
+
+    $scope.submit = function(){
+        $http({method:'PUT' , url:'/poll/'+$scope.poll._id+'/'+$scope.response.val})
+            .success(function(data){
+                console.log(data);
+                if(data === 'response noted')
+                {
+                    $http.get('/poll/' + $scope.session.poll+'/').success(function(data){
+                        $scope.poll = data;
+                        console.log('poll refreshed');
+                        $scope.PollAnswered = true;
+                    });
+                }
+            });
+    };
 });

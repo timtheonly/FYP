@@ -32,11 +32,11 @@
                                     <option value='2'>Donut chart</option>
                                     <option value='3'>Bar chart</option>
 								</select>
-                                <d3-bar-chart values='poll.answers' width='250' height='200' ng-show='graph == "3" '>
+                                <d3-bar-chart values='poll.answers'  width='250' height='200' useClass='"elevateBar"' ng-show='graph == "3" '>
                                 </d3-bar-chart>
-                                <d3-pie-chart values='poll.answers' width='250' height='200' ng-show='graph == "1" '>
+                                <d3-pie-chart values='poll.answers' use='elevatePie' width='250' height='200' ng-show='graph == "1" '>
                                 </d3-pie-chart>
-                                <d3-donut-chart values='poll.answers' width='250' height='200' ng-show='graph == "2" '>
+                                <d3-donut-chart values='poll.answers' use='elevateDonut' width='250' height='200' ng-show='graph == "2" '>
                                 </d3-donut-chart>
 
 							</div>
@@ -58,9 +58,38 @@
 				</div>
 			</div>
 		</div>
+        <div ng-show='!elevated'>
+            <div class='row'>
+                <div class=' col-lg-offset-1 col-lg-5'>
+                    <h3>{{poll.question}}</h3>
+                </div>
+            </div>
+            <div class='row'>
+                <div class=' col-lg-offset-1 col-lg-5' ng-show='PollAnswered'>
+                    <select ng-model='graph' class='form-control'>
+                        <option value='1'>Pie chart</option>
+                        <option value='2'>Donut chart</option>
+                        <option value='3'>Bar chart</option>
+                    </select>
+                </div>
+                <div class=' col-lg-offset-1 col-lg-5' ng-show='!PollAnswered'>
+                    <div  class='radio' ng-repeat='ans in poll.answers'><input type='radio' name='poll' ng-model='response.val' value='{{ans.answer}}'/>{{ans.answer}}</div>
+                    <button type='button' class='btn btn-primary' ng-click='submit()'>Submit</button>
+                </div>
+            </div>
+            <div class='row'>
+                <div class=' col-lg-offset-1 col-lg-5' ng-show='PollAnswered'>
+                    <d3-bar-chart values='poll.answers' useClass='"bar"' width='250' height='200' ng-show='graph == "3" '>
+                    </d3-bar-chart>
+                    <d3-pie-chart values='poll.answers' use='pie' width='250' height='200' ng-show='graph == "1" '>
+                    </d3-pie-chart>
+                    <d3-donut-chart values='poll.answers'  use='donut' width='250' height='200' ng-show='graph == "2" '>
+                    </d3-donut-chart>
+                </div>
+            </div>
+        </div>
 	</div>
 	<div class='col-xs-1 visible-xs'>
-		<p>extra small screen</p>
 	</div>
 	<div class='col-sm-1 visible-sm'>
 		<p>small screen</p>
