@@ -34,12 +34,13 @@
                     <form class=''>
                          <div class='form-group'>
                              <label for='name'>Session name</label>
-                             <input type='text' name='name' class='form-control' ng-model='input.name'/>
+                             <input type='text' name='name' class='form-control' ng-model='name'/>
                         </div>
                         <div class='form-group'>
                             <label for='tags'>Tags</label>
                                 <div ng-repeat='tag in tags track by $index'>
-                                   <br/><input type='text' name='tags' ng-model='tag' class='form-control'/>
+                                   <br/><input type='text' name='tags' ng-model='tags[$index]' class='form-control'/><p ng-model='tag'></p>
+                                    <button ng-show='$last' ng-click='removeTag()' class='btn btn-xs btn-primary'><span class='glyphicon glyphicon-minus'></span></button>
                                    <button ng-show='$last' ng-click='addTag()' class='btn btn-xs btn-primary'><span class='glyphicon glyphicon-plus'></span></button>
                                 </div>
                         </div>

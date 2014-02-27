@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fypApp').controller('sessionsCtrl',function($scope, $http, UserFactory, $modal){
+angular.module('fypApp').controller('sessionsCtrl',function($scope, $http, UserFactory){
     $scope.elevated = UserFactory.get().elevated;
     $scope.showForm = false;
     /* Based on example from:
@@ -8,12 +8,29 @@ angular.module('fypApp').controller('sessionsCtrl',function($scope, $http, UserF
      */
     $scope.tags = ['','',''];
 
+    $scope.removeTag = function(){
+        $scope.tags.pop();
+    };
+
     $scope.addTag = function(){
         $scope.tags.push('');
     };
 
     $scope.ok = function(){
-        console.log($scope.tags);
+        $http.post('/session',{
+
+            name:$scope.name,
+            creator:UserFactory.get()._id,
+            tags:$scope.tags,
+            open:true,
+            poll: null
+
+        }).success(function(data){
+            $http.get('/session').success(function(data){
+                $scope.sessions = data;
+            });
+            $scope.showForm = false;
+        });
     }
 
 	$http.get('/session').success(function(data){
