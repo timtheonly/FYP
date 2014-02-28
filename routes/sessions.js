@@ -1,6 +1,7 @@
 'use strict';
 
 require('../models/Session');
+require('../models/Poll');
 
 module.exports.setup = function(app, mongoose){
 
@@ -8,6 +9,8 @@ module.exports.setup = function(app, mongoose){
 	 * Session routes
 	 */
 	var Session = mongoose.model('session');
+    var Poll = mongoose.model('poll');
+
 	var baseUrl = '/session';
 
 	//list all sessions
@@ -43,9 +46,6 @@ module.exports.setup = function(app, mongoose){
 	});
 
 	//add a poll to a session
-	/*
-	 * todo: possibly refactor so this is only done in the poll route
-	 */
 	app.put(baseUrl + '/:id/poll/:pollid',function(req,res){
 		Session.findOne({_id:req.params.id},function(err,session){
 			if(err){
@@ -60,9 +60,14 @@ module.exports.setup = function(app, mongoose){
 
 			}else{//if no error attach a poll to the session
 				if(session !== null){
-					session.addPoll(function(err){
-						if(err){throw err;}
-						res.send('poll added');
+					session.addPoll(req.params.pollid,function(err){
+                        Poll.findOne({_id:req.params.pollid},function(err,poll){
+                            poll.session = req.params.id;
+                            poll.save(function(err){
+                                if(err){throw err;}
+                                res.send('poll added');
+                            });
+                        });
 					});
 				}else{
 					res.send('session not found');

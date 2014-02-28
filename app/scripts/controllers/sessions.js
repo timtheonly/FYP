@@ -1,11 +1,8 @@
 'use strict';
 
-angular.module('fypApp').controller('sessionsCtrl',function($scope, $http, UserFactory){
+angular.module('fypApp').controller('sessionsCtrl',function($scope, $http, UserFactory, $window){
     $scope.elevated = UserFactory.get().elevated;
     $scope.showForm = false;
-    /* Based on example from:
-     * http://mrngoitall.net/blog/2013/10/02/adding-form-fields-dynamically-in-angularjs/
-     */
     $scope.tags = ['','',''];
 
     $scope.removeTag = function(){
@@ -26,10 +23,9 @@ angular.module('fypApp').controller('sessionsCtrl',function($scope, $http, UserF
             poll: null
 
         }).success(function(data){
-            $http.get('/session').success(function(data){
-                $scope.sessions = data;
-            });
-            $scope.showForm = false;
+             var loc = '/app#/session/'+data;
+             loc =loc.replace(/["]+/g, '');//need to remove double quotes
+             $window.location.href = loc;
         });
     }
 
