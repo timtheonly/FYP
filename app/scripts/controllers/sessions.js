@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('fypApp').controller('sessionsCtrl',function($scope, $http, UserFactory, $window){
-    $scope.elevated = UserFactory.get().elevated;
+    $scope.user = UserFactory.get();
     $scope.showForm = false;
     $scope.tags = ['','',''];
 
@@ -13,11 +13,16 @@ angular.module('fypApp').controller('sessionsCtrl',function($scope, $http, UserF
         $scope.tags.push('');
     };
 
+    $scope.remove = function(id){
+        $http.delete('/session/'+id)
+            .success($scope.refresh);
+    };
+
     $scope.ok = function(){
         $http.post('/session',{
 
             name:$scope.name,
-            creator:UserFactory.get()._id,
+            creator:$scope.user._id,
             tags:$scope.tags,
             open:true,
             poll: null
@@ -29,7 +34,11 @@ angular.module('fypApp').controller('sessionsCtrl',function($scope, $http, UserF
         });
     }
 
-	$http.get('/session').success(function(data){
-		$scope.sessions = data;
-	});
+    $scope.refresh = function(){
+        $http.get('/session').success(function(data){
+            $scope.sessions = data;
+        });
+    };
+
+    $scope.refresh();
 });

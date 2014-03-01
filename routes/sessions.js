@@ -142,7 +142,7 @@ module.exports.setup = function(app, mongoose){
 	});
 
 	//delete a session
-	app.delete(baseUrl+'/:id/', function(req,res){
+	app.delete(baseUrl+'/:id', function(req,res){
 		Session.delete(req.params.id, function(err){
 			if(err){throw err;}
 			res.send('session deleted');

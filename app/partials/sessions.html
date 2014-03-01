@@ -14,17 +14,17 @@
 		</div>
 	</div>
 	<div class='row'>
-		<div class='col-lg-6  col-sm-6 col-xs-6'>
+		<div class='col-lg-6  col-sm-6 col-xs-6' style='height:450px;overflow:auto;'>
 			<div class='list-group'>
-				<a href='/app#/session/{{session._id}}' class='list-group-item' ng-repeat="session in sessions | filter:searchFilter">
-					<h5 class='list-group-item-heading'>{{session.name}}</h5>
+				<div class='list-group-item' ng-repeat="session in sessions | filter:searchFilter">
+					<a href='/app#/session/{{session._id}}'><h5 class='list-group-item-heading'>{{session.name}}&nbsp;</h5></a><i class='fa fa-times pull-right' style='color:#C1CDC1;' ng-show='session.creator === user._id' ng-click='$parent.remove(session._id)'></i>
 					<ul class='list-inline'>
-						<li ng-repeat='tag in session.tags'>{{tag}}</li>
+						<li ng-repeat='tag in session.tags track by $index'>{{tag}}</li>
 					</ul>
-				</a>
+				</div>
 			</div>
  		</div>
-        <div class='col-lg-offset-1 col-lg-5 col-sm-5 col-xs-5' ng-show='elevated'>
+        <div class='col-lg-offset-1 col-lg-5 col-sm-5 col-xs-5' ng-show='user.elevated'>
             <button class='btn btn-primary' ng-click='showForm = !showForm' ng-show='!showForm'>create new session</button>
             <div class='panel panel-info' ng-show='showForm'>
                 <div class='panel-heading'>
@@ -34,12 +34,12 @@
                     <form class=''>
                          <div class='form-group'>
                              <label for='name'>Session name</label>
-                             <input type='text' name='name' class='form-control' ng-model='name'/>
+                             <input type='text' id='name' class='form-control' ng-model='name'/>
                         </div>
                         <div class='form-group'>
                             <label for='tags'>Tags</label>
                                 <div ng-repeat='tag in tags track by $index'>
-                                   <br/><input type='text' name='tags' ng-model='tags[$index]' class='form-control'/><p ng-model='tag'></p>
+                                   <br/><input type='text' id='tags' ng-model='tags[$index]' class='form-control'/><p ng-model='tag'></p>
                                     <button ng-show='$last' ng-click='removeTag()' class='btn btn-xs btn-primary'><span class='glyphicon glyphicon-minus'></span></button>
                                    <button ng-show='$last' ng-click='addTag()' class='btn btn-xs btn-primary'><span class='glyphicon glyphicon-plus'></span></button>
                                 </div>
