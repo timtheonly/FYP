@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, $routeParams, socket, UserFactory){
+angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, $routeParams, socket, UserFactory, $modal){
 	$scope.elevated = UserFactory.get().elevated;
 	$scope.questions =[];
     $scope.graph = 1;
@@ -58,4 +58,75 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
                 }
             });
     };
-});
+
+    $scope.openModal = function(){
+        var modalInstance = $modal.open({
+            templateUrl: 'partials/attachPollModal.html',
+            controller: 'attachPollModal',
+            keyboard: false,
+            resolve:{
+                sessionID: function(){
+                    return $scope.session._id;
+                },
+                UserID: function(){
+                    return UserFactory.get()._id;
+                }
+            }
+        });
+
+        modalInstance.result.then(function(message){
+            if(message === 'success'){//if the poll was created successfully update session data
+                $http.get('/session/' +$routeParams.id).success(function(data){
+                    $scope.session = data;
+                    socket.emit('room', $scope.session._id); //emit that this user has joined this session
+                    if($scope.session.poll)
+                    {
+                        $http.get('/poll/' + $scope.session.poll+'/').success(function(data){
+                            $scope.poll = data;
+                        });
+                    }
+                });
+            }
+        });
+    };
+})
+    .controller('attachPollModal', ['$scope', '$http', '$modalInstance', function($scope, $http, $modalInstance, sessionID, UserID){
+        $scope.answers =['','',''];
+        $scope.input = {};
+
+        $scope.addAnswer=function(){
+            $scope.answers.push('');
+        };
+
+        $scope.removeAnswer = function(){
+            $scope.answers.pop();
+        };
+
+        $scope.attach = function(){
+            var postAnswers = [];
+            console.log($scope.question);
+            for(var i =0; i< $scope.answers.length;i++){
+                postAnswers.push({answer:$scope.answers[i], response:0});//wrap answers in a format accepted on the server
+            }
+
+            $http.post('/poll',{
+                question: $scope.input.pollQ,
+                creator: UserID,
+                open: true,
+                answers: postAnswers
+            })
+                .success(function(data){
+                    $http.put('/session/'+sessionID+'/poll/'+data)
+                        .success(function(){
+                            $modalInstance.close('success');
+                        })
+                        .error(function(){
+                            $modalInstance.close('error');
+                        });
+                });
+        };
+
+        $scope.cancel = function(){
+            $modalInstance.close('canceled');
+        };
+    }]);

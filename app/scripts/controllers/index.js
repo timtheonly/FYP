@@ -19,23 +19,22 @@ angular.module('fypApp').controller('loginCtrl',['$scope', '$http', '$modal', '$
 
 	$scope.open = function () {
 
-    var modalInstance = $modal.open({
-      templateUrl: 'partials/signUpModal.html',
-      controller: 'ModalCtrl',
-      keyboard: false,
-      resolve: {
-        items: function () {
-          return $scope.items;
-        }
-      }
-    });
+        var modalInstance = $modal.open({
+             templateUrl: 'partials/signUpModal.html',
+             controller: 'ModalCtrl',
+             keyboard: false,
+             resolve: {
+              items: function () {
+               return $scope.items;
+               }
+            }
+        });
 	};
 }]).controller('ModalCtrl', ['$scope', '$http', '$modalInstance', function($scope, $http, $modalInstance){
 	$scope.input ={};
 	$scope.ok = function(){
-		console.log($scope);
 		$http.post('/users',$scope.input)
-			.success(function(data,status,headers,config){
+			.success(function(data){
 				if(data === 'ok'){
 					$scope.createdAccount = true;
 					setTimeout(function(){

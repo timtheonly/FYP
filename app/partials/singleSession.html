@@ -53,7 +53,7 @@
                             </div>
                             <div id='collapseTwo' class='panel-collapse collapse'>
                                 <div class='panel-body'>
-                                    Options
+                                    <button class='btn btn-primary' ng-click='openModal()'>Attach a poll</button>
                                 </div>
                             </div>
                         </div>
@@ -173,7 +173,9 @@
                             </div>
                             <div id='collapseminTwo' class='panel-collapse collapse'>
                                 <div class='panel-body'>
-                                    Options
+                                   <div ng-show='!session.poll'>
+                                        <button class='btn btn-primary'>Attach a poll</button>
+                                   </div>
                                 </div>
                             </div>
                         </div>
