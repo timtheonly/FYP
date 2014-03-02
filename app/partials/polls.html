@@ -16,10 +16,10 @@
 	<div class='row'>
 		<div class='col-lg-6'>
 			<div class='list-group'>
-				<a href='/app#/poll/{{poll._id}}' class='list-group-item' ng-repeat="poll in polls | filter:searchFilter">
-					<h5 class='list-group-item-heading'>{{poll.question}}</h5>
-				</a>
-
+                <div class='list-group-item' ng-repeat="poll in polls | filter:searchFilter">
+				    <a href='/app#/poll/{{poll._id}}'><h5 class='list-group-item-heading'>{{poll.question}}</h5></a>
+                <i class='fa fa-times pull-right' style='color:#C1CDC1;'  ng-show='poll.creator === user._id' ng-click='$parent.remove(poll._id)'></i><br/>
+                </div>
 			</div>
  		</div>
         <div class='col-lg-offset-1 col-lg-5 col-sm-5 col-xs-5' ng-show='user.elevated'>

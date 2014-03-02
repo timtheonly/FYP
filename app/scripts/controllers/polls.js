@@ -1,10 +1,6 @@
 'use strict';
 
 angular.module('fypApp').controller('pollsCtrl',function($scope, $http, UserFactory){
-	$http.get('/poll/globals').success(function(data){
-		$scope.polls = data;
-	});
-
     $scope.user = UserFactory.get();
     $scope.answers = ['','',''];
     $scope.showForm = false;
@@ -22,11 +18,12 @@ angular.module('fypApp').controller('pollsCtrl',function($scope, $http, UserFact
             open: true,
             answers: postAnswers
         })
-            .success(function(){
-                $http.get('/poll/globals').success(function(data){
-                    $scope.polls = data;
-                });
-            })
+            .success($scope.refresh);
+    };
+
+    $scope.remove = function(id){
+        $http.delete('/poll/'+id)
+            .success($scope.refresh)
     };
 
     $scope.addAnswer = function(){
@@ -36,4 +33,12 @@ angular.module('fypApp').controller('pollsCtrl',function($scope, $http, UserFact
     $scope.removeAnswer = function(){
         $scope.answers.pop();
     };
+
+    $scope.refresh = function(){
+        $http.get('/poll/globals').success(function(data){
+            $scope.polls = data;
+        });
+    };
+
+    $scope.refresh();
 });

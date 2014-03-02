@@ -66,7 +66,7 @@ module.exports.setup = function(app, mongoose){
 	});
 
 	//delete a poll
-	app.delete(baseUrl+'/:id/',function(req,res){
+	app.delete(baseUrl+'/:id',function(req,res){
 		Poll.delete(req.params.id,function(err){
 			if(err){throw err;}
 			res.send('poll deleted');
