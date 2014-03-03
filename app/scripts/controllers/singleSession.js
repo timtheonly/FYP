@@ -62,13 +62,13 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
     $scope.openModal = function(){
         var modalInstance = $modal.open({
             templateUrl: 'partials/attachPollModal.html',
-            controller: 'attachPollModal',
+            controller: attachPollModal,
             keyboard: false,
             resolve:{
-                sessionID: function(){
+                sessionID:function(){
                     return $scope.session._id;
                 },
-                UserID: function(){
+                UserID:function(){
                     return UserFactory.get()._id;
                 }
             }
@@ -89,10 +89,14 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
             }
         });
     };
-})
-    .controller('attachPollModal', ['$scope', '$http', '$modalInstance', function($scope, $http, $modalInstance, sessionID, UserID){
+});
+
+var attachPollModal =  function($scope, $http, $modalInstance, sessionID, UserID){
         $scope.answers =['','',''];
         $scope.input = {};
+
+        console.log(sessionID);
+        console.log(UserID)
 
         $scope.addAnswer=function(){
             $scope.answers.push('');
@@ -116,6 +120,7 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
                 answers: postAnswers
             })
                 .success(function(data){
+                    data =data.replace(/["]+/g, '');//need to remove double quotes
                     $http.put('/session/'+sessionID+'/poll/'+data)
                         .success(function(){
                             $modalInstance.close('success');
@@ -129,4 +134,4 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
         $scope.cancel = function(){
             $modalInstance.close('canceled');
         };
-    }]);
+}

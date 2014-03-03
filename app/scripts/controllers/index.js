@@ -22,12 +22,7 @@ angular.module('fypApp').controller('loginCtrl',['$scope', '$http', '$modal', '$
         var modalInstance = $modal.open({
              templateUrl: 'partials/signUpModal.html',
              controller: 'ModalCtrl',
-             keyboard: false,
-             resolve: {
-              items: function () {
-               return $scope.items;
-               }
-            }
+             keyboard: false
         });
 	};
 }]).controller('ModalCtrl', ['$scope', '$http', '$modalInstance', function($scope, $http, $modalInstance){

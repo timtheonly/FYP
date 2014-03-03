@@ -1,24 +1,3 @@
-/* Hack to get angular ui modal dialog working with bootstrap 3
- * for details see https://github.com/angular-ui/bootstrap/issues/722
- */
-.modal {
-display: block;
-}
-.modal-body:before,
-.modal-body:after {
-display: table;
-content: " ";
-}
-.modal-header:before,
-.modal-header:after {
-display: table;
-content: " ";
-}
-.hide{
-  display:none;
-}
-/* end hack */
-
 .questionBox
 {
 	background:white;
