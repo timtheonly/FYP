@@ -1,10 +1,11 @@
 'use strict';
 
-angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, $routeParams, socket, UserFactory, $modal){
+angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, $routeParams, socket, UserFactory, $modal, $timeout){
 	$scope.elevated = UserFactory.get().elevated;
 	$scope.questions =[];
     $scope.graph = 1;
     $scope.PollAnswered = false;
+    $scope.live = true;
     /* used to resolve a scope error created by ng-repeat
      * see: https://github.com/angular/angular.js/issues/1100
      */
@@ -89,6 +90,22 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
             }
         });
     };
+
+    $scope.timer = function(){
+       $timeout(function(){
+            if($scope.live)
+            {
+                $http.get('/poll/' + $scope.session.poll+'/').success(function(data){
+                    $scope.poll = data;
+                });
+
+            }else{
+                $scope.timer();
+            }
+       }, 30000);
+    };
+
+    $scope.timer();
 });
 
 var attachPollModal =  function($scope, $http, $modalInstance, sessionID, UserID){
