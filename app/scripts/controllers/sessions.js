@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fypApp').controller('sessionsCtrl',function($scope, $http, UserFactory, $window){
+angular.module('fypApp').controller('sessionsCtrl',function($scope, $http, UserFactory, $window, $anchorScroll, $location){
     $scope.user = UserFactory.get();
     $scope.showForm = false;
     $scope.tags = ['','',''];
@@ -39,6 +39,7 @@ angular.module('fypApp').controller('sessionsCtrl',function($scope, $http, UserF
             $scope.sessions = data;
         });
     };
+
 
     $scope.refresh();
 });

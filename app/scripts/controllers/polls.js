@@ -19,6 +19,9 @@ angular.module('fypApp').controller('pollsCtrl',function($scope, $http, UserFact
             answers: postAnswers
         })
             .success($scope.refresh);
+
+        $scope.answers = ['','',''];
+        $scope.question = '';
     };
 
     $scope.remove = function(id){
@@ -39,6 +42,5 @@ angular.module('fypApp').controller('pollsCtrl',function($scope, $http, UserFact
             $scope.polls = data;
         });
     };
-
     $scope.refresh();
 });

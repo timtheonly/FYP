@@ -14,7 +14,7 @@
 		</div>
 	</div>
 	<div class='row'>
-		<div class='col-lg-6  col-sm-6 col-xs-6' style='height:450px;overflow:auto;'>
+		<div class='col-lg-6  col-sm-6 col-xs-10' style='height:450px;overflow:auto;'>
 			<div class='list-group'>
 				<div class='list-group-item' ng-repeat="session in sessions | filter:searchFilter">
 					<a href='/app#/session/{{session._id}}'><h5 class='list-group-item-heading'>{{session.name}}&nbsp;</h5></a><i class='fa fa-times pull-right' style='color:#C1CDC1;' ng-show='session.creator === user._id' ng-click='$parent.remove(session._id)'></i>
@@ -24,7 +24,7 @@
 				</div>
 			</div>
  		</div>
-        <div class='col-lg-offset-1 col-lg-5 col-sm-5 col-xs-5' ng-show='user.elevated'>
+        <div class='col-lg-5 col-sm-5 col-xs-5' ng-show='user.elevated'>
             <button class='btn btn-primary' ng-click='showForm = !showForm' ng-show='!showForm'>create new session</button>
             <div class='panel panel-info' ng-show='showForm'>
                 <div class='panel-heading'>

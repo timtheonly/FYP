@@ -5,6 +5,8 @@
 			<h1>polls</h1>
 		</div>
 	</div>
+
+    <div class='visible-lg'>
 	<div class='row'>
 		<div class='col-lg-6'>
  			<div class='input-group'>
@@ -22,14 +24,14 @@
                 </div>
 			</div>
  		</div>
-        <div class='col-lg-offset-1 col-lg-5 col-sm-5 col-xs-5' ng-show='user.elevated'>
+        <div class='col-lg-6' ng-show='user.elevated'>
             <button class='btn btn-primary' ng-click='showForm = !showForm' ng-show='!showForm'>Create new poll</button>
             <div class='panel panel-info' ng-show='showForm'>
                 <div class='panel-heading'>
                     <h3 class='panel-title'>Create new poll</h3>
                 </div>
                 <div class='panel-body'>
-                    <form class=''>
+                    <form>
                         <div class='form-group'>
                             <label for='question'>Question: </label>
                             <input type='text' id='question' class='form-control' ng-model='question'/>
@@ -50,4 +52,50 @@
             </div>
         </div>
  	</div>
+</div>
+<div class='row'>
+    <div class='col-xs-10 col-sm-10 hidden-lg' ng-show='user.elevated'>
+            <ul class='nav nav-tabs'>
+                <li class='active'><a data-toggle='tab' data-target='#polls'>Polls</a></li>
+                <li><a data-toggle='tab' data-target='#create'>Create Poll</a></li>
+            </ul>
+            <div class='tab-content'>
+             <div class='tab-pane active' id='polls'>
+                 <div class='list-group'>
+                     <div class='list-group-item' ng-repeat="poll in polls | filter:searchFilter">
+                         <a href='/app#/poll/{{poll._id}}'><h5 class='list-group-item-heading'>{{poll.question}}</h5></a>
+                         <i class='fa fa-times pull-right' style='color:#C1CDC1;'  ng-show='poll.creator === user._id' ng-click='$parent.remove(poll._id)'></i><br/>
+                     </div>
+                 </div>
+             </div>
+                <div class='tab-pane' id='create'>
+                    <form>
+                        <div class='form-group'>
+                            <label for='que'>Question: </label>
+                            <input type='text' id='que' class='form-control' ng-model='question'/>
+                        </div>
+                        <div class='form-group'>
+                            <label for='ans'>Answers: </label>
+                            <div ng-repeat='ans in answers track by $index'>
+                                <br/><input type='text' id='ans' ng-model='answers[$index]' class='form-control'/>
+                                <button ng-show='$last' ng-click='removeAnswer()' class='btn btn-xs btn-primary'><span class='glyphicon glyphicon-minus'></span></button>
+                                <button ng-show='$last' ng-click='addAnswer()' class='btn btn-xs btn-primary'><span class='glyphicon glyphicon-plus'></span></button>
+                            </div>
+                        </div>
+                        <div class='input-group'>
+                           <button ng-click='ok()' class='btn btn-success'>Create</button>
+                        </div>
+                    </form>
+                 </div>
+             </div>
+        </div>
+    <div class='col-xs-10 col-sm-10 hidden-lg' ng-show='!user.elevated'>
+        <div class='list-group'>
+            <div class='list-group-item' ng-repeat="poll in polls | filter:searchFilter">
+                <a href='/app#/poll/{{poll._id}}'><h5 class='list-group-item-heading'>{{poll.question}}</h5></a>
+                <i class='fa fa-times pull-right' style='color:#C1CDC1;'  ng-show='poll.creator === user._id' ng-click='$parent.remove(poll._id)'></i><br/>
+            </div>
+        </div>
+    </div>
+    </div>
 </div>

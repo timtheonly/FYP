@@ -103,7 +103,7 @@
             </div>
         </div>
    </div>
-	<div class='col-xs-7 col-sm-7 hidden-lg'>
+	<div class='col-xs-10 col-sm-10 hidden-lg'>
         <ul class='nav nav-tabs'>
             <li class='active'><a data-toggle='tab' data-target='#questions'>Questions</a></li>
             <li><a data-toggle='tab' data-target='#poll'>Poll</a></li>
@@ -195,13 +195,13 @@
                                 <option value='3'>Bar chart</option>
                             </select>
                         </div>
-                        <div class=' col-lg-offset-1 col-lg-5' ng-show='!PollAnswered'>
+                        <div class='col-sm-5 col-xs-5' ng-show='!PollAnswered'>
                             <div  class='radio' ng-repeat='ans in poll.answers'><input type='radio' name='poll' ng-model='response.val' value='{{ans.answer}}'/>{{ans.answer}}</div>
                             <button type='button' class='btn btn-primary' ng-click='submit()'>Submit</button>
                         </div>
                     </div>
                     <div class='row'>
-                        <div class=' col-lg-offset-1 col-lg-5' ng-show='PollAnswered'>
+                        <div class='col-sm-1 col-xs-1' ng-show='PollAnswered'>
                             <d3-bar-chart values='poll.answers' useClass='"bar"' width='250' height='200' ng-show='graph == "3" '>
                             </d3-bar-chart>
                             <d3-pie-chart values='poll.answers' use='pie' width='250' height='200' ng-show='graph == "1" '>
