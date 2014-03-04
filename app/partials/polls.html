@@ -61,6 +61,10 @@
             </ul>
             <div class='tab-content'>
              <div class='tab-pane active' id='polls'>
+                 <div class='input-group'>
+                     <input type='text' class='form-control' ng-model="searchFilter">
+                     <span class='help-block'>search for poll</span>
+                 </div>
                  <div class='list-group'>
                      <div class='list-group-item' ng-repeat="poll in polls | filter:searchFilter">
                          <a href='/app#/poll/{{poll._id}}'><h5 class='list-group-item-heading'>{{poll.question}}</h5></a>
@@ -90,6 +94,10 @@
              </div>
         </div>
     <div class='col-xs-10 col-sm-10 hidden-lg' ng-show='!user.elevated'>
+        <div class='input-group'>
+            <input type='text' class='form-control' ng-model="searchFilter">
+            <span class='help-block'>search for poll</span>
+        </div>
         <div class='list-group'>
             <div class='list-group-item' ng-repeat="poll in polls | filter:searchFilter">
                 <a href='/app#/poll/{{poll._id}}'><h5 class='list-group-item-heading'>{{poll.question}}</h5></a>

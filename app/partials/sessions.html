@@ -5,51 +5,112 @@
 			<h1>Sessions</h1>
 		</div>
 	</div>
-	<div class='row'>
-		<div class='col-lg-6'>
- 			<div class='input-group'>
-  				<input type='text' class='form-control' ng-model="searchFilter">
-  				<span class='help-block'>search for sessions</span>
-			</div>
-		</div>
-	</div>
-	<div class='row'>
-		<div class='col-lg-6  col-sm-6 col-xs-10' style='height:450px;overflow:auto;'>
-			<div class='list-group'>
-				<div class='list-group-item' ng-repeat="session in sessions | filter:searchFilter">
-					<a href='/app#/session/{{session._id}}'><h5 class='list-group-item-heading'>{{session.name}}&nbsp;</h5></a><i class='fa fa-times pull-right' style='color:#C1CDC1;' ng-show='session.creator === user._id' ng-click='$parent.remove(session._id)'></i>
-					<ul class='list-inline'>
-						<li ng-repeat='tag in session.tags track by $index'>{{tag}}</li>
-					</ul>
-				</div>
-			</div>
- 		</div>
-        <div class='col-lg-5 col-sm-5 col-xs-5' ng-show='user.elevated'>
-            <button class='btn btn-primary' ng-click='showForm = !showForm' ng-show='!showForm'>create new session</button>
-            <div class='panel panel-info' ng-show='showForm'>
-                <div class='panel-heading'>
-                    <h3 class='panel-title'>Create new Session</h3>
-                </div>
-                <div class='panel-body'>
-                    <form class=''>
-                         <div class='form-group'>
-                             <label for='name'>Session name</label>
-                             <input type='text' id='name' class='form-control' ng-model='name'/>
-                        </div>
-                        <div class='form-group'>
-                            <label for='tags'>Tags</label>
-                                <div ng-repeat='tag in tags track by $index'>
-                                   <br/><input type='text' id='tags' ng-model='tags[$index]' class='form-control'/><p ng-model='tag'></p>
-                                    <button ng-show='$last' ng-click='removeTag()' class='btn btn-xs btn-primary'><span class='glyphicon glyphicon-minus'></span></button>
-                                   <button ng-show='$last' ng-click='addTag()' class='btn btn-xs btn-primary'><span class='glyphicon glyphicon-plus'></span></button>
-                                </div>
-                        </div>
-                        <div class='input-group'>
-                            <button class='btn btn-danger' ng-click='showForm = !showForm'>Cancel</button>&nbsp;<button ng-click='ok()' class='btn btn-success'>Create</button>
-                        </div>
-                    </form>
+
+    <div class='visible-lg'>
+        <div class='row'>
+            <div class='col-lg-6'>
+                <div class='input-group'>
+                    <input type='text' class='form-control' ng-model="searchFilter">
+                    <span class='help-block'>search for sessions</span>
                 </div>
             </div>
         </div>
- 	</div>
+        <div class='row'>
+            <div class='col-lg-6' style='height:450px; overflow:auto;'>
+                <div class='list-group'>
+                    <div class='list-group-item' ng-repeat="session in sessions | filter:searchFilter">
+                        <a href='/app#/session/{{session._id}}'><h5 class='list-group-item-heading'>{{session.name}}&nbsp;</h5></a><i class='fa fa-times pull-right' style='color:#C1CDC1;' ng-show='session.creator === user._id' ng-click='$parent.remove(session._id)'></i>
+                        <ul class='list-inline'>
+                            <li ng-repeat='tag in session.tags track by $index'>{{tag}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class='col-lg-5' ng-show='user.elevated'>
+                <button class='btn btn-primary' ng-click='showForm = !showForm' ng-show='!showForm'>create new session</button>
+                <div class='panel panel-info' ng-show='showForm'>
+                    <div class='panel-heading'>
+                        <h3 class='panel-title'>Create new Session</h3>
+                    </div>
+                    <div class='panel-body'>
+                        <form class=''>
+                             <div class='form-group'>
+                                 <label for='name'>Session name</label>
+                                 <input type='text' id='name' class='form-control' ng-model='name'/>
+                            </div>
+                            <div class='form-group'>
+                                <label for='tags'>Tags</label>
+                                    <div ng-repeat='tag in tags track by $index'>
+                                       <br/><input type='text' id='tags' ng-model='tags[$index]' class='form-control'/><p ng-model='tag'></p>
+                                        <button ng-show='$last' ng-click='removeTag()' class='btn btn-xs btn-primary'><span class='glyphicon glyphicon-minus'></span></button>
+                                       <button ng-show='$last' ng-click='addTag()' class='btn btn-xs btn-primary'><span class='glyphicon glyphicon-plus'></span></button>
+                                    </div>
+                            </div>
+                            <div class='input-group'>
+                                <button class='btn btn-danger' ng-click='showForm = !showForm'>Cancel</button>&nbsp;<button ng-click='ok()' class='btn btn-success'>Create</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='row'>
+            <div class='col-xs-10 col-sm-10 hidden-lg' ng-show='user.elevated'>
+                <ul class='nav nav-tabs'>
+                    <li class='active'><a data-toggle='tab' data-target='#sessions'>Sessions</a></li>
+                    <li><a data-toggle='tab' data-target='#create'>Create Session</a></li>
+                </ul>
+                <div class='tab-content'>
+                <div class='tab-pane active' id='sessions'>
+                    <div class='input-group'>
+                        <input type='text' class='form-control' ng-model="searchFilter">
+                        <span class='help-block'>search for sessions</span>
+                    </div>
+                    <div class='list-group'>
+                        <div class='list-group-item' ng-repeat="session in sessions | filter:searchFilter">
+                            <a href='/app#/session/{{session._id}}'><h5 class='list-group-item-heading'>{{session.name}}&nbsp;</h5></a><i class='fa fa-times pull-right' style='color:#C1CDC1;' ng-show='session.creator === user._id' ng-click='$parent.remove(session._id)'></i>
+                            <ul class='list-inline'>
+                                <li ng-repeat='tag in session.tags track by $index'>{{tag}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class='tab-pane' id='create'>
+                        <form class=''>
+                            <div class='form-group'>
+                                <label for='sesname'>Session name</label>
+                                <input type='text' id='sesname' class='form-control' ng-model='name'/>
+                            </div>
+                            <div class='form-group'>
+                                <label for='ptags'>Tags</label>
+                                <div ng-repeat='tag in tags track by $index'>
+                                    <br/><input type='text' id='ptags' ng-model='tags[$index]' class='form-control'/><p ng-model='tag'></p>
+                                    <button ng-show='$last' ng-click='removeTag()' class='btn btn-xs btn-primary'><span class='glyphicon glyphicon-minus'></span></button>
+                                    <button ng-show='$last' ng-click='addTag()' class='btn btn-xs btn-primary'><span class='glyphicon glyphicon-plus'></span></button>
+                                </div>
+                            </div>
+                            <div class='input-group'>
+                               <button ng-click='ok()' class='btn btn-success'>Create</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+               </div>
+            <div class='col-xs-10 col-sm-10 hidden-lg' ng-show='!user.elevated'>
+                <div class='input-group'>
+                    <input type='text' class='form-control' ng-model="searchFilter">
+                    <span class='help-block'>search for sessions</span>
+                </div>
+                <div class='list-group'>
+                    <div class='list-group-item' ng-repeat="session in sessions | filter:searchFilter">
+                        <a href='/app#/session/{{session._id}}'><h5 class='list-group-item-heading'>{{session.name}}&nbsp;</h5></a><i class='fa fa-times pull-right' style='color:#C1CDC1;' ng-show='session.creator === user._id' ng-click='$parent.remove(session._id)'></i>
+                        <ul class='list-inline'>
+                            <li ng-repeat='tag in session.tags track by $index'>{{tag}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
