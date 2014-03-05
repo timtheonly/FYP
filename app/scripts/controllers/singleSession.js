@@ -94,14 +94,12 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
     $scope.timer = function(){
        $timeout(function(){
             if($scope.live)
-            {
-                $http.get('/poll/' + $scope.session.poll+'/').success(function(data){
-                    $scope.poll = data;
-                });
-
-            }else{
-                $scope.timer();
-            }
+           {
+               $http.get('/poll/' + $scope.session.poll+'/').success(function(data){
+                   $scope.poll = data;
+               });
+           }
+           $scope.timer();
        }, 30000);
     };
 

@@ -13,7 +13,6 @@ angular.module('fypApp')
 		},
 		link:
 		function(scope, element){
-            console.log(scope.use);
 			element.append('<svg class="bar" width="'+scope.width+'" height="'+scope.height+'"></svg>');
 			/* Based on example from
 			*  http://nvd3.org/ghpages/discreteBar.html
@@ -107,13 +106,15 @@ angular.module('fypApp')
                 /* Based on example from
                  * hhttp://nvd3.org/ghpages/pie.html
                  */
-                var chart;
+
                 scope.$watch('values', function(newVal){
                     if(!newVal)
                     {
                         return;
                     }
+                    var chart;
                     nv.addGraph(function(){
+
                         chart = nv.models.pieChart()
                             .x(function(d){return d.answer;})
                             .y(function(d){ return d.response;})
