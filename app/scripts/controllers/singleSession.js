@@ -5,7 +5,6 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
 	$scope.questions =[];
     $scope.graph = 1;
     $scope.PollAnswered = false;
-    $scope.live = true;
     /* used to resolve a scope error created by ng-repeat
      * see: https://github.com/angular/angular.js/issues/1100
      */
@@ -93,11 +92,14 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
 
     $scope.timer = function(){
        $timeout(function(){
-            if($scope.live)
+           if($scope.poll)
            {
-               $http.get('/poll/' + $scope.session.poll+'/').success(function(data){
-                   $scope.poll = data;
-               });
+                if($scope.poll.live)
+                {
+                   $http.get('/poll/' + $scope.session.poll+'/').success(function(data){
+                       $scope.poll = data;
+                    });
+                }
            }
            $scope.timer();
        }, 30000);
@@ -109,9 +111,6 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
 var attachPollModal =  function($scope, $http, $modalInstance, sessionID, UserID){
         $scope.answers =['','',''];
         $scope.input = {};
-
-        console.log(sessionID);
-        console.log(UserID)
 
         $scope.addAnswer=function(){
             $scope.answers.push('');

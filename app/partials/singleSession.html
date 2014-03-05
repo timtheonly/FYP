@@ -53,9 +53,12 @@
                             </div>
                             <div id='collapseTwo' class='panel-collapse collapse'>
                                 <div class='panel-body'>
-                                    <button class='btn btn-primary' ng-click='openModal()'>Attach a poll</button>
+                                    <div ng-show='!session.poll'>
+                                        <button class='btn btn-primary' ng-click='openModal()'>Attach a poll</button>
+                                    </div>
+
                                     <div class='input-group'>
-                                        <label for='livePoll'>Live results:<input type='checkbox' id='livePoll' ng-model='live' ></label>
+                                        <label for='livePoll'>Live results:<input type='checkbox' id='livePoll' ng-model='poll.live' ></label>
                                     </div>
                                 </div>
                             </div>
@@ -177,8 +180,9 @@
                             <div id='collapseminTwo' class='panel-collapse collapse'>
                                 <div class='panel-body'>
                                    <div ng-show='!session.poll'>
-                                        <button class='btn btn-primary'>Attach a poll</button>
+                                        <button class='btn btn-primary' ng-click='openModal()'>Attach a poll</button>
                                    </div>
+                                    <label for='livePoll'>Live results:<input type='checkbox' id='livePoll' ng-model='poll.live' ></label>
                                 </div>
                             </div>
                         </div>

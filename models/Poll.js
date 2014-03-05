@@ -13,7 +13,8 @@ var pollSchema = new Schema({
 	session: Schema.Types.ObjectId,
 	answers:[responseSchema],
 	creator: {type:Schema.Types.ObjectId, required:true},
-	open: Boolean
+	open: Boolean,
+    live: Boolean
 },{collection:'poll'});
 
 
