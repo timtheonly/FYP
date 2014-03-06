@@ -2,13 +2,14 @@
 
 require('../models/Poll');
 
-module.exports.setup = function(app, mongoose){
+module.exports.setup = function(app, mongoose, io){
 
 	/*
 	 * Session routes
 	 */
 	var Poll = mongoose.model('poll');
 	var baseUrl = '/poll';
+    var sockets = io.sockets;
 
 	//list all polls
 	app.get(baseUrl, function(req,res){
@@ -72,6 +73,15 @@ module.exports.setup = function(app, mongoose){
 			res.send('poll deleted');
 		});
 	});
+
+    //toggle if a poll is live
+    app.put(baseUrl+'/:id/live',function(req,res){
+        Poll.toggleLive(req.params.id,function(err, poll){
+           if(err){throw err;}
+            sockets.broadcast.to(poll.session).emit('poll-update',poll);
+            res.send('poll modified');
+        });
+    });
 
 	//create a new poll
 	app.post(baseUrl,function(req,res){

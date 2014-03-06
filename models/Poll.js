@@ -93,7 +93,7 @@ pollSchema.statics.addAnswer =function(ans,ID,callback){
 /*
  * save a response for a given Poll
  * @param {string} response (the selected answer)
- * @param {string} session id
+ * @param {string} poll id
  */
 pollSchema.statics.input = function(ID,response,callback){
 	this.findOne({_id:ID}, function(err, poll){
@@ -113,12 +113,28 @@ pollSchema.statics.input = function(ID,response,callback){
 
 /*
  * delete the given Poll
- * @param {string} session id
+ * @param {string} poll id
  *
  */
+
+pollSchema.statics.toggleLive = function(ID,callback){
+    this.findOne({_id:ID}, function(err, poll){
+        if(err){callback(err);}
+        poll.live = !poll.live;
+        poll.save(function(err){
+            if(err){callback(err);}
+            callback(null,poll);
+        });
+    });
+};
 pollSchema.statics.delete = function(ID,callback){
 	this.remove({_id:ID},callback);
 };
+
+/*
+ * toggle whether a poll is live
+ * @param {String} poll id
+ */
 
 
 mongoose.model('poll', pollSchema);
