@@ -73,7 +73,7 @@
                   </div>
               </div>
               <div class='row'>
-                  <div class=' col-lg-offset-1 col-lg-5' ng-show='PollAnswered'>
+                  <div class=' col-lg-offset-1 col-lg-5' ng-show='PollAnswered && poll.live'>
                       <select ng-model='graph' class='form-control'>
                           <option value='1'>Pie chart</option>
                           <option value='2'>Donut chart</option>
@@ -86,7 +86,7 @@
                   </div>
               </div>
               <div class='row'>
-                  <div class=' col-lg-offset-1 col-lg-5' ng-show='PollAnswered'>
+                  <div class=' col-lg-offset-1 col-lg-5' ng-show='PollAnswered && poll.live'>
                       <d3-bar-chart values='poll.answers' useClass='"bar"' width='250' height='200' ng-show='graph == "3" '>
                       </d3-bar-chart>
                       <d3-pie-chart values='poll.answers' use='pie' width='250' height='200' ng-show='graph == "1" '>
@@ -195,7 +195,7 @@
                         </div>
                     </div>
                     <div class='row'>
-                        <div class=' col-lg-offset-1 col-lg-5' ng-show='PollAnswered'>
+                        <div class=' col-lg-offset-1 col-lg-5' ng-show='PollAnswered && poll.live'>
                             <select ng-model='graph' class='form-control'>
                                 <option value='1'>Pie chart</option>
                                 <option value='2'>Donut chart</option>
@@ -208,7 +208,7 @@
                         </div>
                     </div>
                     <div class='row'>
-                        <div class='col-sm-1 col-xs-1' ng-show='PollAnswered'>
+                        <div class='col-sm-1 col-xs-1' ng-show='PollAnswered && poll.live'>
                             <d3-bar-chart values='poll.answers' useClass='"bar"' width='250' height='200' ng-show='graph == "3" '>
                             </d3-bar-chart>
                             <d3-pie-chart values='poll.answers' use='pie' width='250' height='200' ng-show='graph == "1" '>
