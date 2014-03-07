@@ -11,6 +11,17 @@ module.exports.setup = function(app, mongoose, io){
 	var baseUrl = '/poll';
     var sockets = io.sockets;
 
+    sockets.on('connection',function(socket){
+
+        socket.on('poll-live', function(id){
+            Poll.toggleLive(id,function(err,poll){
+                if(err){throw err;}
+                socket.broadcast.to(poll.session).emit('pollUpdate', poll);
+            });
+        });
+
+    });
+
 	//list all polls
 	app.get(baseUrl, function(req,res){
 		Poll.listAll(function(err,polls){
@@ -74,14 +85,7 @@ module.exports.setup = function(app, mongoose, io){
 		});
 	});
 
-    //toggle if a poll is live
-    app.put(baseUrl+'/:id/live',function(req,res){
-        Poll.toggleLive(req.params.id,function(err, poll){
-           if(err){throw err;}
-            sockets.broadcast.to(poll.session).emit('poll-update',poll);
-            res.send('poll modified');
-        });
-    });
+
 
 	//create a new poll
 	app.post(baseUrl,function(req,res){

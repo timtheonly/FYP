@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, $routeParams, socket, UserFactory, $modal, $timeout){
-	$scope.elevated = UserFactory.get().elevated;
+	/*
+	 * Scope initialization
+	 */
+    $scope.elevated = UserFactory.get().elevated;
 	$scope.questions =[];
     $scope.graph = 1;
     $scope.PollAnswered = false;
@@ -20,11 +23,45 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
 			});
 		}
 	});
+    /*
+     * End scope initialization
+     */
 
+    /*
+     * Watches
+     */
+     $scope.$watch('poll.live',function(newval){
+         if(!newval)
+         {
+             return;
+         }
+         socket.emit('poll-live', $scope.poll._id);
+     });
+    /*
+     * End Watches
+     */
 
+    /*
+     * socket stuff
+     */
+	socket.forward('question');//broadcast when a question is sent to the server
+    socket.forward('pollUpdate');//broadcast when the session poll is modified
 
-	socket.forward('question');
+    $scope.$on('socket:pollUpdate',function(ev,data){
+        $scope.poll = data;
+    });
 
+    $scope.$on('socket:question',function(ev,data){
+        $scope.questions.unshift(data);
+    });
+
+    /*
+    *  End socket stuff
+    */
+
+    /*
+     * scope functions
+     */
 	$scope.charsRemaining= function(){
 		return 140 - ($scope.questionText || '').length;
 	};
@@ -41,9 +78,7 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
 		$scope.questionText ='';
 	};
 
-	$scope.$on('socket:question',function(ev,data){
-		$scope.questions.unshift(data);
-	});
+
 
     $scope.submit = function(){
         $http({method:'PUT' , url:'/poll/'+$scope.poll._id+'/'+$scope.response.val})
@@ -58,6 +93,25 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
                 }
             });
     };
+
+    //set up timer to check for poll responses if the poll is live every thirty seconds
+    $scope.timer = function(){
+        $timeout(function(){
+            if($scope.poll)
+            {
+                if($scope.poll.live)
+                {
+                    $http.get('/poll/' + $scope.session.poll+'/').success(function(data){
+                        $scope.poll = data;
+                    });
+                }
+            }
+            $scope.timer();
+        }, 30000);
+    };
+
+    //call timer once to start it
+    $scope.timer();
 
     $scope.openModal = function(){
         var modalInstance = $modal.open({
@@ -90,22 +144,9 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
         });
     };
 
-    $scope.timer = function(){
-       $timeout(function(){
-           if($scope.poll)
-           {
-                if($scope.poll.live)
-                {
-                   $http.get('/poll/' + $scope.session.poll+'/').success(function(data){
-                       $scope.poll = data;
-                    });
-                }
-           }
-           $scope.timer();
-       }, 30000);
-    };
-
-    $scope.timer();
+    /*
+     * End Scope functions
+     */
 });
 
 var attachPollModal =  function($scope, $http, $modalInstance, sessionID, UserID){

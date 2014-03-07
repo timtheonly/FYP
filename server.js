@@ -44,7 +44,7 @@ server.listen(9000);
 
 console.log('Express server listening on port 9000');
 
-//take care of messages being sent/received
+//take care of sockets being sent/received
 io.sockets.on('connection', function(socket){
 
     //send messages 
