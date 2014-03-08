@@ -94,6 +94,9 @@
                       <d3-donut-chart values='poll.answers'  use='donut' width='250' height='200' ng-show='graph == "2" '>
                       </d3-donut-chart>
                   </div>
+                  <div class=' col-lg-offset-1 col-lg-5' ng-show='PollAnswered && !poll.live'>
+                      <p>Your reponse has been noted</p>
+                  </div>
               </div>
         </div>
       </div>
@@ -215,6 +218,9 @@
                             </d3-pie-chart>
                             <d3-donut-chart values='poll.answers'  use='donut' width='250' height='200' ng-show='graph == "2" '>
                             </d3-donut-chart>
+                        </div>
+                        <div class='col-sm-1 col-xs-1' ng-show='PollAnswered && !poll.live'>
+                            <p>Your response has bee noted</p>
                         </div>
                     </div>
                 </div>
