@@ -18,7 +18,7 @@
         <div class='row'>
             <div class='col-lg-6' style='height:450px; overflow:auto;'>
                 <div class='list-group'>
-                    <div class='list-group-item' ng-repeat="session in sessions | filter:searchFilter">
+                    <div class='list-group-item' ng-repeat="session in sessions | filter:searchFilter" ng-class="{'alternate-bg': $odd}">
                         <a href='/app#/session/{{session._id}}'><h5 class='list-group-item-heading'>{{session.name}}&nbsp;</h5></a><i class='fa fa-times pull-right' style='color:#C1CDC1;' ng-show='session.creator === user._id' ng-click='$parent.remove(session._id)'></i>
                         <ul class='list-inline'>
                             <li ng-repeat='tag in session.tags track by $index'>{{tag}}</li>
@@ -68,7 +68,7 @@
                         <span class='help-block'>search for sessions</span>
                     </div>
                     <div class='list-group'>
-                        <div class='list-group-item' ng-repeat="session in sessions | filter:searchFilter">
+                        <div class='list-group-item' ng-repeat="session in sessions | filter:searchFilter" ng-class="{'alternate-bg': $odd}">
                             <a href='/app#/session/{{session._id}}'><h5 class='list-group-item-heading'>{{session.name}}&nbsp;</h5></a><i class='fa fa-times pull-right' style='color:#C1CDC1;' ng-show='session.creator === user._id' ng-click='$parent.remove(session._id)'></i>
                             <ul class='list-inline'>
                                 <li ng-repeat='tag in session.tags track by $index'>{{tag}}</li>
@@ -103,7 +103,7 @@
                     <span class='help-block'>search for sessions</span>
                 </div>
                 <div class='list-group'>
-                    <div class='list-group-item' ng-repeat="session in sessions | filter:searchFilter">
+                    <div class='list-group-item' ng-repeat="session in sessions | filter:searchFilter" ng-class="{'alternate-bg': $odd}">
                         <a href='/app#/session/{{session._id}}'><h5 class='list-group-item-heading'>{{session.name}}&nbsp;</h5></a><i class='fa fa-times pull-right' style='color:#C1CDC1;' ng-show='session.creator === user._id' ng-click='$parent.remove(session._id)'></i>
                         <ul class='list-inline'>
                             <li ng-repeat='tag in session.tags track by $index'>{{tag}}</li>

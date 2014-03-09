@@ -9,7 +9,10 @@
 	border:1px solid black;
 	margin-bottom: 10px;
 }
-
+.alternate-bg
+{
+    background: #FFFAFA;
+}
 /*rounded corners  for a scroll bar from:
 http://css-tricks.com/body-border-rounded-inside/
 */
