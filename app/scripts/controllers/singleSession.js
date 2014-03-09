@@ -8,6 +8,8 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
 	$scope.questions =[];
     $scope.graph = 1;
     $scope.PollAnswered = false;
+    $scope.showQuestion = false; //to hide question after submission on live polls
+    
     /* used to resolve a scope error created by ng-repeat
      * see: https://github.com/angular/angular.js/issues/1100
      */
@@ -83,13 +85,16 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
     $scope.submit = function(){
         $http({method:'PUT' , url:'/poll/'+$scope.poll._id+'/'+$scope.response.val})
             .success(function(data){
-                console.log(data);
                 if(data === 'response noted')
                 {
                     $http.get('/poll/' + $scope.session.poll+'/').success(function(data){
                         $scope.poll = data;
                         $scope.PollAnswered = true;
                     });
+                    if($scope.poll.live === false)
+                    {
+                        $scope.showQuestion = true;
+                    }
                 }
             });
     };
