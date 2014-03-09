@@ -29,6 +29,16 @@
 	  	 			<strong>Error</strong> This is a required field
 	  	 		</div>
 	  	    </div>
+            <div class='input-group'>
+                <input  class='form-control' type='password' placeholder='Confirm Password'   name='confpassword' required/>
+                <div  class='alert alert-warning' ng-show="input.confpassword != input.password && signup.confpassword.$dirty">
+                    <strong>Warning</strong> passwords do not match
+                </div>
+                <div  class='alert alert-danger' ng-show="signup.confpassword.$error.required && signup.confpassword.$dirty">
+                    <strong>Error</strong> This is a required field
+                </div>
+
+            </div>
         </form>
 
   	 	

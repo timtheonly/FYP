@@ -28,24 +28,23 @@ angular.module('fypApp').controller('loginCtrl',['$scope', '$http', '$modal', '$
 }]).controller('ModalCtrl', ['$scope', '$http', '$modalInstance', function($scope, $http, $modalInstance){
 	$scope.input ={};
 	$scope.ok = function(){
-		$http.post('/users',$scope.input)
-			.success(function(data){
-				if(data === 'ok'){
-					$scope.createdAccount = true;
-					setTimeout(function(){
-						$modalInstance.close();
-					}, 3000);
+        $http.post('/users',$scope.input)
+            .success(function(data){
+                if(data === 'ok'){
+                    $scope.createdAccount = true;
+                    setTimeout(function(){
+                        $modalInstance.close();
+                    }, 3000);
 
-				}else if(data ==='user exsits'){
-					$scope.usernameExists = true;
-				}else{
-					$scope.errorHappened = true;
-				}
-			})
-			.error(function(){
-				$scope.errorHappened = true;
-			});
-		
+                }else if(data ==='user exsits'){
+                    $scope.usernameExists = true;
+                }else{
+                    $scope.errorHappened = true;
+                }
+            })
+            .error(function(){
+                $scope.errorHappened = true;
+            });
 	};
 
 	$scope.cancel = function(){
