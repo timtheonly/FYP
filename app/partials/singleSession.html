@@ -80,7 +80,7 @@
                           <option value='3'>Bar chart</option>
                       </select>
                   </div>
-                  <div class=' col-lg-offset-1 col-lg-5' ng-show='!PollAnswered'>
+                  <div class=' col-lg-offset-1 col-lg-5' ng-show='!PollAnswered && poll'>
                       <div  class='radio' ng-repeat='ans in poll.answers'><input type='radio' name='poll' ng-model='response.val' value='{{ans.answer}}'/>{{ans.answer}}</div>
                       <button type='button' class='btn btn-primary' ng-click='submit()'>Submit</button>
                   </div>
@@ -185,7 +185,9 @@
                                    <div ng-show='!session.poll'>
                                         <button class='btn btn-primary' ng-click='openModal()'>Attach a poll</button>
                                    </div>
-                                    <label for='livePoll'>Live results:<input type='checkbox' id='livePoll' ng-model='poll.live' ></label>
+                                    <div class='input-group' ng-show='session.poll'>
+                                        <label for='livePoll'>Live results:<input type='checkbox' id='livePoll' ng-model='poll.live' ></label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -205,7 +207,7 @@
                                 <option value='3'>Bar chart</option>
                             </select>
                         </div>
-                        <div class='col-sm-5 col-xs-5' ng-show='!PollAnswered'>
+                        <div class='col-sm-5 col-xs-5' ng-show='!PollAnswered && poll'>
                             <div  class='radio' ng-repeat='ans in poll.answers'><input type='radio' name='poll' ng-model='response.val' value='{{ans.answer}}'/>{{ans.answer}}</div>
                             <button type='button' class='btn btn-primary' ng-click='submit()'>Submit</button>
                         </div>
