@@ -86,6 +86,16 @@ module.exports = function (grunt) {
       }
     },
 
+    concat: {
+          options: {
+              separator: ' '
+          },
+          dist: {
+              src: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+              dest: 'dist/app.js'
+          }
+      },
+
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
       options: {
@@ -392,8 +402,6 @@ module.exports = function (grunt) {
     'ngmin',
     'copy:dist',
     'cdnify',
-    'cssmin',
-    'uglify',
     'rev',
     'usemin'
   ]);
