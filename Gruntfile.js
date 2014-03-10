@@ -389,7 +389,6 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
-    'concat',
     'ngmin',
     'copy:dist',
     'cdnify',
