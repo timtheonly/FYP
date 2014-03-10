@@ -9,7 +9,7 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
     $scope.graph = 1;
     $scope.PollAnswered = false;
     $scope.showQuestion = false; //to hide question after submission on live polls
-    
+
     /* used to resolve a scope error created by ng-repeat
      * see: https://github.com/angular/angular.js/issues/1100
      */

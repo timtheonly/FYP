@@ -29,8 +29,9 @@ app.use(express.cookieParser());
 app.use(express.session({secret:'reallyLongSecret12345355'}));
 app.use(app.router);
 
+var mongoUri = process.env.MONGOHQ_URL ||'mongodb://localhost/FYP';
 
-mongoose = mongoose.connect('mongodb://localhost/FYP',function(err){
+mongoose = mongoose.connect(mongoUri,function(err){
   if(err){
     console.log('Error:'.red + 'connection to mongodb refused!');
     process.exit(-1);
@@ -40,9 +41,10 @@ mongoose = mongoose.connect('mongodb://localhost/FYP',function(err){
 
 var server = http.createServer(app);
 var io = socket.listen(server);
-server.listen(9000);
+var port = process.env.PORT || 9000;
+server.listen(port);
 
-console.log('Express server listening on port 9000');
+console.log('Express server listening on port: '+port);
 
 //take care of sockets being sent/received
 io.sockets.on('connection', function(socket){
