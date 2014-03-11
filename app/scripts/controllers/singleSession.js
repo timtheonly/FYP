@@ -50,7 +50,7 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
     socket.forward('pollUpdate');//broadcast when the session poll is modified
 
     $scope.$on('socket:pollUpdate',function(ev,data){
-        $scope.poll = data;
+        console.log('poll updated');
     });
 
     $scope.$on('socket:question',function(ev,data){

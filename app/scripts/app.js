@@ -11,6 +11,11 @@ angular.module('fypApp', [
 			templateUrl:'../partials/home.html',
 			title:'Home'
 		})
+        .when('/settings',{
+            templateUrl: '../partials/settings.html',
+            controller:'settingsCtrl',
+            title:'Settings'
+        })
 		.when('/sessions',{
 			templateUrl: '../partials/sessions.html',
 			controller:'sessionsCtrl',

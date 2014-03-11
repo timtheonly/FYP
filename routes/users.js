@@ -41,12 +41,19 @@ module.exports.setup = function(app, mongoose){
 	});
 
 	//send back the users data
-	app.get(baseUrl, function(req,res){
+	app.get('/user', function(req,res){
 		if(req.session.user)
 		{
 			res.send(req.session.user);
 		}
 	});
+
+    //list all users
+    app.get(baseUrl, function(req,res){
+        User.list(function(data){
+            res.send(data);
+        });
+    });
 
 	//logout the user
 	app.get(baseUrl+'/logout',function(req,res){
@@ -56,6 +63,13 @@ module.exports.setup = function(app, mongoose){
 		}
 		res.redirect('/');
 	});
+
+    app.put(baseUrl+'/elevate/:id',function(req, res){
+        User.elevate(req.params.id,function(err){
+            if(err){throw err;}
+            res.send('elevated');
+        });
+    });
 
 	//create a new user
 	app.post(baseUrl, function(req,res){
@@ -77,6 +91,7 @@ module.exports.setup = function(app, mongoose){
 		
 	});
 
+    //delete a user
 	app.delete(baseUrl+'/:username',function(req,res){
 		User.delete(req.params.username,function(err){
 			if(err){

@@ -78,6 +78,21 @@ userSchema.statics.authenicate = function(username, password, callback){
 	});
 };
 
+userSchema.statics.list = function(callback){
+    this.find({},{password:0},function(err,users){
+        if(err){return callback(err);}
+        return callback(users)
+    });
+};
+
+userSchema.statics.elevate = function(id,callback){
+    this.findOne({_id:id},function(err, user){
+        if(err){return callback(err);}
+        user.elevated = true;
+        user.save(callback);
+    });
+} ;
+
 userSchema.statics.delete = function(usr,callback){
 	this.remove({username: usr},callback);
 };
