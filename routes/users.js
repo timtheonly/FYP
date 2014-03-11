@@ -64,10 +64,40 @@ module.exports.setup = function(app, mongoose){
 		res.redirect('/');
 	});
 
+    //elevate the user
     app.put(baseUrl+'/elevate/:id',function(req, res){
         User.elevate(req.params.id,function(err){
             if(err){throw err;}
             res.send('elevated');
+        });
+    });
+
+    app.put(baseUrl+'/password', function(req,res){
+        User.authenicate(req.body.username,req.body.password,function(err, user){
+            if(err)
+            {
+                if(err === 1)
+                {
+                    res.send('username doesn\'t exist');
+                }else if(err === 2){
+                    res.send('incorrect password supplied');
+                }else{
+                    return err;
+                }
+
+            }else
+            {
+                if(req.body.newPassword.length > 0)
+                {
+                    user.password = req.body.newPassword;
+                    user.save(function(err){
+                        if(err){throw err;}
+                        res.send('ok')
+                    });
+                }else{
+                    res.send('password can\'t be blank');
+                }
+            }
         });
     });
 

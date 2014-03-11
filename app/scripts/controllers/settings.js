@@ -2,6 +2,8 @@
 
 angular.module('fypApp').controller('settingsCtrl',function($scope, $http, UserFactory){
     $scope.user = UserFactory.get();
+    $scope.hasMessage = false;
+    $scope.success = false;
 
     $scope.refresh  = function(){
         $http.get('/users')
@@ -15,7 +17,31 @@ angular.module('fypApp').controller('settingsCtrl',function($scope, $http, UserF
             .success(function(data){
                $scope.refresh();
             });
-    }
+    };
+
+    $scope.changePw = function(){
+       if($scope.newPw === $scope.confNewPw)
+       {
+           $http.put('/users/password')
+               .data({
+                    username: $scope.user.username,
+                    password: $scope.password,
+                    newPassword:$scope.newPw
+               })
+               .success(function(data){
+                   if(data != 'ok')
+                   {
+                       $scope.message = data;
+                       $scope.hasMessage = true;
+                   }else{
+                       $scope.success = true;
+                   }
+               });
+       }else{
+           $scope.message ='Passwords don\'t match';
+           $scope.hasMessage = true;
+       }
+    };
 
     $scope.refresh();
 });
