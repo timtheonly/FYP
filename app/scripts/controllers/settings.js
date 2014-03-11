@@ -22,12 +22,11 @@ angular.module('fypApp').controller('settingsCtrl',function($scope, $http, UserF
     $scope.changePw = function(){
        if($scope.newPw === $scope.confNewPw)
        {
-           $http.put('/users/password')
-               .data({
-                    username: $scope.user.username,
-                    password: $scope.password,
-                    newPassword:$scope.newPw
-               })
+           $http.put('/users/password',{
+               username: $scope.user.username,
+               password: $scope.password,
+               newPassword:$scope.newPw
+           })
                .success(function(data){
                    if(data != 'ok')
                    {
@@ -41,6 +40,9 @@ angular.module('fypApp').controller('settingsCtrl',function($scope, $http, UserF
            $scope.message ='Passwords don\'t match';
            $scope.hasMessage = true;
        }
+       $scope.password ='';
+       $scope.confNewPw ='';
+       $scope.newPw = '';
     };
 
     $scope.refresh();
