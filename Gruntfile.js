@@ -15,6 +15,8 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
+  grunt.loadNpmTasks('grunt-ngmin');
+
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -60,7 +62,7 @@ module.exports = function (grunt) {
           '<%= yeoman.app %>/<%= yeoman.views %>/{,*//*}*.{html,jade}',
           '{.tmp,<%= yeoman.app %>}/styles/{,*//*}*.css',
           '{.tmp,<%= yeoman.app %>}/scripts/{,*//*}*.js',
-          '<%= yeoman.app %>/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
+          '<%= yeoman.app %>/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}'
         ],
         options: {
           livereload: true
@@ -87,13 +89,19 @@ module.exports = function (grunt) {
     },
 
     concat: {
-          options: {
-              separator: ' '
-          },
-          dist: {
+        options: {
+            // Replace all 'use strict' statements in the code with a single one at the top
+            //from: https://github.com/gruntjs/grunt-contrib-concat
+            banner: "'use strict';\n",
+            process: function(src, filepath) {
+                return '// Source: ' + filepath + '\n' +
+                    src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
+            }
+        },
+        dist: {
               src: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
               dest: 'dist/app.js'
-          }
+        }
       },
 
     // Make sure code styles are up to par and there are no obvious mistakes
@@ -241,9 +249,9 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '.tmp/concat/scripts',
+          cwd: 'dist',
           src: '*.js',
-          dest: '.tmp/concat/scripts'
+          dest:'dist'
         }]
       }
     },
@@ -275,7 +283,7 @@ module.exports = function (grunt) {
           dot: true,
           cwd: '<%= yeoman.app %>/<%= yeoman.views %>',
           dest: '<%= yeoman.views %>',
-          src: '**/*.jade',
+          src: '**/*.jade'
         }, {
           expand: true,
           cwd: '.tmp/images',
@@ -341,15 +349,13 @@ module.exports = function (grunt) {
     //     }
     //   }
     // },
-    // uglify: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/scripts/scripts.js': [
-    //         '<%= yeoman.dist %>/scripts/scripts.js'
-    //       ]
-    //     }
-    //   }
-    // },
+     uglify: {
+          dist: {
+               files: {
+               'dist/app.min.js': ['dist/app.js']
+               }
+          }
+     },
     // concat: {
     //   dist: {}
     // },
@@ -395,15 +401,9 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build', [
-    'clean:dist',
-    'useminPrepare',
-    'concurrent:dist',
-    'autoprefixer',
+    'concat',
     'ngmin',
-    'copy:dist',
-    'cdnify',
-    'rev',
-    'usemin'
+    'uglify'
   ]);
 
   grunt.registerTask('heroku', [

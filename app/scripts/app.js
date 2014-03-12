@@ -49,9 +49,9 @@ angular.module('fypApp', [
 		}
 	};
 })
-.controller('titleCtrl', function($scope,$route){//a controller to cahnge the page title when the route changes
+.controller('titleCtrl',['$scope', '$route', function($scope,$route){//a controller to change the page title when the route changes
 	$scope.title = 'Welcome';
 	$scope.$on('$routeChangeSuccess',function(){
 		$scope.title = $route.current.title;
 	});
-});
+}]);

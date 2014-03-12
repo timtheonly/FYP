@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fypApp').controller('settingsCtrl',function($scope, $http, UserFactory){
+angular.module('fypApp').controller('settingsCtrl',['$scope','$http','UserFactory',function($scope, $http, UserFactory){
     $scope.user = UserFactory.get();
     $scope.hasMessage = false;
     $scope.success = false;
@@ -46,4 +46,4 @@ angular.module('fypApp').controller('settingsCtrl',function($scope, $http, UserF
     };
 
     $scope.refresh();
-});
+}]);

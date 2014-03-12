@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fypApp').controller('pollsCtrl',function($scope, $http, UserFactory){
+angular.module('fypApp').controller('pollsCtrl',['$scope','$http','UserFactory',function($scope, $http, UserFactory){
     $scope.user = UserFactory.get();
     $scope.answers = ['','',''];
     $scope.showForm = false;
@@ -43,4 +43,4 @@ angular.module('fypApp').controller('pollsCtrl',function($scope, $http, UserFact
         });
     };
     $scope.refresh();
-});
+}]);

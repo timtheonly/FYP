@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fypApp').controller('singlePollCrtl',function($scope, $http, $routeParams, UserFactory){
+angular.module('fypApp').controller('singlePollCrtl',['$scope','$http','$routeParams', 'UserFactory', function($scope, $http, $routeParams, UserFactory){
 	$scope.elevated = UserFactory.get().elevated;
     $scope.graph = 1;
     $scope.PollAnswered = false;
@@ -24,4 +24,4 @@ angular.module('fypApp').controller('singlePollCrtl',function($scope, $http, $ro
 		$scope.poll = data;
 	});
 
-});
+}]);

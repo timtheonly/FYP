@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fypApp').controller('sessionsCtrl',function($scope, $http, UserFactory, $window, $anchorScroll, $location){
+angular.module('fypApp').controller('sessionsCtrl',[ '$scope','$http','UserFactory','$window',function($scope, $http, UserFactory, $window){
     $scope.user = UserFactory.get();
     $scope.showForm = false;
     $scope.tags = ['','',''];
@@ -42,4 +42,4 @@ angular.module('fypApp').controller('sessionsCtrl',function($scope, $http, UserF
 
 
     $scope.refresh();
-});
+}]);

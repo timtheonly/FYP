@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, $routeParams, socket, UserFactory, $modal, $timeout){
+angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$routeParams','socket','UserFactory','$modal','$timeout', function($scope, $http, $routeParams, socket, UserFactory, $modal, $timeout){
 	/*
 	 * Scope initialization
 	 */
@@ -121,7 +121,7 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
     $scope.openModal = function(){
         var modalInstance = $modal.open({
             templateUrl: 'partials/attachPollModal.html',
-            controller: attachPollModal,
+            controller: 'attachPollModal',
             keyboard: false,
             resolve:{
                 sessionID:function(){
@@ -152,9 +152,7 @@ angular.module('fypApp').controller('singleSessionCrtl',function($scope, $http, 
     /*
      * End Scope functions
      */
-});
-
-var attachPollModal =  function($scope, $http, $modalInstance, sessionID, UserID){
+}]).controller('attachPollModal',['$scope','$http','$modalInstance','sessionID','UserID',function($scope, $http, $modalInstance, sessionID, UserID){
         $scope.answers =['','',''];
         $scope.input = {};
 
@@ -194,4 +192,4 @@ var attachPollModal =  function($scope, $http, $modalInstance, sessionID, UserID
         $scope.cancel = function(){
             $modalInstance.close('canceled');
         };
-}
+}]);
