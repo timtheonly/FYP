@@ -13,7 +13,7 @@ cp -ru ~/git/FYP/package.json ~/git/FYP-heroku/package.json
 cp -ru ~/git/FYP/app/partials/* ~/git/FYP-heroku/app/partials/
 cp -ru ~/git/FYP/app/fonts/* ~/git/FYP-heroku/app/fonts/
 cp -ru ~/git/FYP/app/images/* ~/git/FYP-heroku/app/images/
-cp -ru ~/git/FYP/app/styles/* ~/git/FYP-heroku/app/styles/
+cp -ru ~/git/FYP/dist/main.min.css ~/git/FYP-heroku/app/styles/
 cp -ru ~/git/FYP/dist/app.min.js ~/git/FYP-heroku/app/scripts/app.min.js
 
 #models
