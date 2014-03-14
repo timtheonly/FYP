@@ -75,6 +75,23 @@ pollSchema.statics.setClosed = function(ID,callback){
 	});
 };
 
+/* toggle the given poll open status
+ *	@param {Function} callback
+ *  @param {String} ID
+ *  comment: should use update but doesn't seem to work
+ *			 more research required
+ */
+pollSchema.statics.toggleOpen = function(ID,callback){
+    this.findOne({_id:ID},function(err,poll){
+      if(err){callback(err);}
+      poll.open = !poll.open;
+        poll.save(function(err){
+            if(err){callback(err);}
+            callback(null,poll);
+        });
+    });
+};
+
 /*  add an answer to the poll
  *	@param {Function} callback
  *  @param {String} answer

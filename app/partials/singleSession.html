@@ -56,9 +56,9 @@
                                     <div ng-show='!session.poll'>
                                         <button class='btn btn-primary' ng-click='openModal()'>Attach a poll</button>
                                     </div>
-
-                                    <div class='input-group' ng-show='session.poll'>
-                                        <label for='livePoll'>Live results:<input type='checkbox' id='livePoll' ng-model='poll.live' ></label>
+                                    <div class='btn-group-vertical'>
+                                        <button class='btn btn-primary' ng-click='togglePoll()'>{{pollStatus}} poll</button>
+                                        <button class='btn btn-primary' ng-click='togglePollLive()'>{{pollLiveStatus}} live results</button>
                                     </div>
                                 </div>
                             </div>
@@ -186,7 +186,7 @@
                                         <button class='btn btn-primary' ng-click='openModal()'>Attach a poll</button>
                                    </div>
                                     <div class='input-group' ng-show='session.poll'>
-                                        <label for='livePoll'>Live results:<input type='checkbox' id='livePoll' ng-model='poll.live' ></label>
+                                        <label for='livePoll'>Live results:<input type='checkbox' id='livePoll' ng-model='livePoll' ></label>
                                     </div>
                                 </div>
                             </div>

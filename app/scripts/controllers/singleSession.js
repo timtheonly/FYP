@@ -9,6 +9,8 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
     $scope.graph = 1;
     $scope.PollAnswered = false;
     $scope.showQuestion = false; //to hide question after submission on live polls
+    $scope.pollStatus = 'open';
+    $scope.pollLiveStatus = 'show';
 
     /* used to resolve a scope error created by ng-repeat
      * see: https://github.com/angular/angular.js/issues/1100
@@ -22,6 +24,8 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
 		{
 			$http.get('/poll/' + $scope.session.poll+'/').success(function(data){
 				$scope.poll = data;
+                $scope.pollStatus = data.open ? 'close' :'open';
+                $scope.pollLiveStatus = data.live ? 'hide' : 'show';
 			});
 		}
 	});
@@ -29,19 +33,6 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
      * End scope initialization
      */
 
-    /*
-     * Watches
-     */
-     $scope.$watch('poll.live',function(newval){
-         if(!newval)
-         {
-             return;
-         }
-         socket.emit('poll-live', $scope.poll._id);
-     });
-    /*
-     * End Watches
-     */
 
     /*
      * socket stuff
@@ -50,7 +41,7 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
     socket.forward('pollUpdate');//broadcast when the session poll is modified
 
     $scope.$on('socket:pollUpdate',function(ev,data){
-        console.log('poll updated');
+        $scope.poll = data;
     });
 
     $scope.$on('socket:question',function(ev,data){
@@ -64,6 +55,19 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
     /*
      * scope functions
      */
+
+    $scope.togglePollLive = function(){
+        socket.emit('poll-live',$scope.session.poll);
+        $scope.poll.live = !$scope.poll.live;
+        $scope.pollLiveStatus = $scope.poll.live ? 'hide' : 'show';
+    };
+
+    $scope.togglePoll = function(){
+        socket.emit('poll-toggle',$scope.poll._id);
+        $scope.poll.open = !$scope.poll.open;
+        $scope.pollStatus = $scope.poll.open ? 'close' : 'open';
+    }
+
 	$scope.charsRemaining= function(){
 		return 140 - ($scope.questionText || '').length;
 	};

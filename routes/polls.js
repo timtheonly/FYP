@@ -20,6 +20,13 @@ module.exports.setup = function(app, mongoose, io){
             });
         });
 
+        socket.on('poll-toggle',function(id){
+            Poll.toggleOpen(id,function(err,poll){
+                if(err){throw err;}
+                socket.broadcast.to(poll.session).emit('pollUpdate',poll);
+            });
+        });
+
     });
 
 	//list all polls
