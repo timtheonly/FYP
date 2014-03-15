@@ -3,7 +3,7 @@
 require('../models/Session');
 require('../models/Poll');
 
-module.exports.setup = function(app, mongoose){
+module.exports.setup = function(app, mongoose, io){
 
 	/*
 	 * Session routes
@@ -12,6 +12,7 @@ module.exports.setup = function(app, mongoose){
     var Poll = mongoose.model('poll');
 
 	var baseUrl = '/session';
+    var sockets = io.sockets;
 
 	//list all sessions
 	app.get(baseUrl,function(req,res){

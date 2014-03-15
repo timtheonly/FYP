@@ -9,8 +9,8 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
     $scope.graph = 1;
     $scope.PollAnswered = false;
     $scope.showQuestion = false; //to hide question after submission on live polls
-    $scope.pollStatus = 'open';
-    $scope.pollLiveStatus = 'show';
+    $scope.pollStatus = 'Open';
+    $scope.pollLiveStatus = 'Show';
 
     /* used to resolve a scope error created by ng-repeat
      * see: https://github.com/angular/angular.js/issues/1100
@@ -24,8 +24,8 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
 		{
 			$http.get('/poll/' + $scope.session.poll+'/').success(function(data){
 				$scope.poll = data;
-                $scope.pollStatus = data.open ? 'close' :'open';
-                $scope.pollLiveStatus = data.live ? 'hide' : 'show';
+                $scope.pollStatus = data.open ? 'Close' :'Open';
+                $scope.pollLiveStatus = data.live ? 'Hide' : 'Show';
 			});
 		}
 	});
@@ -59,14 +59,19 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
     $scope.togglePollLive = function(){
         socket.emit('poll-live',$scope.session.poll);
         $scope.poll.live = !$scope.poll.live;
-        $scope.pollLiveStatus = $scope.poll.live ? 'hide' : 'show';
+        $scope.pollLiveStatus = $scope.poll.live ? 'Hide' : 'Show';
     };
 
     $scope.togglePoll = function(){
         socket.emit('poll-toggle',$scope.poll._id);
         $scope.poll.open = !$scope.poll.open;
-        $scope.pollStatus = $scope.poll.open ? 'close' : 'open';
-    }
+        $scope.pollStatus = $scope.poll.open ? 'Close' : 'Open';
+    };
+
+    $scope.removePoll = function(){
+        socket.emit('poll-remove',$scope.poll._id);
+        $scope.poll = null;
+    };
 
 	$scope.charsRemaining= function(){
 		return 140 - ($scope.questionText || '').length;

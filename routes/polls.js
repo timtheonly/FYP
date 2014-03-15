@@ -26,7 +26,6 @@ module.exports.setup = function(app, mongoose, io){
                 socket.broadcast.to(poll.session).emit('pollUpdate',poll);
             });
         });
-
     });
 
 	//list all polls
