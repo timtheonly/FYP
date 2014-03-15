@@ -67,12 +67,14 @@
                 </div>
         </div>
         <div class='col-md-5' ng-show='!elevated'>
+            <div ng-show='poll.open'>
               <div class='row'>
                   <div class=' col-lg-offset-1 col-lg-5' ng-show='!showQuestion'>
                       <h3>{{poll.question}}</h3>
                   </div>
               </div>
               <div class='row'>
+
                   <div class=' col-lg-offset-1 col-lg-5' ng-show='PollAnswered && poll.live'>
                       <select ng-model='graph' class='form-control'>
                           <option value='1'>Pie chart</option>
@@ -85,6 +87,7 @@
                       <button type='button' class='btn btn-primary' ng-click='submit()'>Submit</button>
                   </div>
               </div>
+            </div>
               <div class='row'>
                   <div class=' col-lg-offset-1 col-lg-5' ng-show='PollAnswered && poll.live'>
                       <d3-bar-chart values='poll.answers' useClass='"bar"' width='250' height='200' ng-show='graph == "3" '>
@@ -163,7 +166,7 @@
                                             <option value='2'>Donut chart</option>
                                             <option value='3'>Bar chart</option>
                                         </select>
-                                        <d3-bar-chart values='poll.answers'  width='250' height='200' useClass='"elevateBar"' ng-show='graph == "3" '>
+                                        <d3-bar-chart values='poll.answers'  width='250' height='200'  ng-show='graph == "3" '>
                                         </d3-bar-chart>
                                         <d3-pie-chart values='poll.answers'  width='250' height='200' ng-show='graph == "1" '>
                                         </d3-pie-chart>
@@ -195,6 +198,7 @@
                     </div>
                 </div>
                 <div class='col-md-5' ng-show='!elevated'>
+                  <div ng-show='poll.open'>
                     <div class='row'>
                         <div class=' col-lg-offset-1 col-lg-5'>
                             <h3>{{poll.question}}</h3>
@@ -226,9 +230,14 @@
                             <p>Your response has bee noted</p>
                         </div>
                     </div>
+
+                </div>
+                <div ng-show='!poll.open'>
+                    <div class='col-sm-10 col-xs-10' style='top:10px; font-size:1.5em'>
+                        <p>Poll is currently closed</p>
+                    </div>
                 </div>
             </div>
             </div>
             </div>
         </div>
-	</div>
