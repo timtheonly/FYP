@@ -14,6 +14,21 @@ module.exports.setup = function(app, mongoose, io){
 	var baseUrl = '/session';
     var sockets = io.sockets;
 
+    sockets.on('connection',function(socket){
+        socket.on('poll-remove',function(data){
+            Session.findOne({_id:data.session},function(err,session){
+               if(err){throw err;}
+               session.poll = null;
+               session.save(function(err){
+                   if(err){throw err;}
+                   Poll.delete(data.poll,function(err){
+                       socket.broadcast.to(session._id).emit('pollUpdate',null);
+                   });
+               });
+            });
+        });
+    });
+
 	//list all sessions
 	app.get(baseUrl,function(req,res){
 		Session.getAll(function(err,sessions){
@@ -83,7 +98,7 @@ module.exports.setup = function(app, mongoose, io){
 
 		//taken from https://github.com/mongodb/js-bson/blob/master/lib/bson/objectid.js
 		var objectIDRegex = new RegExp('^[0-9a-fA-F]{24}$');
-		var pass = true;
+		var pass;
 		var tempSession;
 
 		pass = objectIDRegex.test(req.body.creator);

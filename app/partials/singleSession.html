@@ -56,7 +56,7 @@
                                     <div ng-show='!session.poll'>
                                         <button class='btn btn-primary' ng-click='openModal()'>Attach a poll</button>
                                     </div>
-                                    <div class='btn-group-vertical'>
+                                    <div class='btn-group-vertical' ng-show='session.poll'>
                                         <button class='btn btn-primary' ng-click='togglePoll()'>{{pollStatus}} poll</button>
                                         <button class='btn btn-primary' ng-click='togglePollLive()'>{{pollLiveStatus}} live results</button>
                                         <button class='btn btn-danger' ng-click='removePoll()'>Remove poll</button>

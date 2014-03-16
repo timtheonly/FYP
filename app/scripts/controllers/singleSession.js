@@ -69,8 +69,8 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
     };
 
     $scope.removePoll = function(){
-        socket.emit('poll-remove',$scope.poll._id);
-        $scope.poll = null;
+        socket.emit('poll-remove',{poll:$scope.poll._id, session:$scope.session._id});
+        $scope.session.poll = undefined;
     };
 
 	$scope.charsRemaining= function(){
@@ -175,7 +175,6 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
 
         $scope.attach = function(){
             var postAnswers = [];
-            console.log($scope.question);
             for(var i =0; i< $scope.answers.length;i++){
                 postAnswers.push({answer:$scope.answers[i], response:0});//wrap answers in a format accepted on the server
             }
