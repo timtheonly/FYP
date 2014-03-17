@@ -141,6 +141,22 @@ module.exports.setup = function(app, mongoose, io){
 		}
 	});
 
+    //add a password to a session
+    app.put(baseUrl+'/:id/setpassword',function(res,req){
+        Session.setPassword(req.params.id,req.body.password,function(err){
+            if(err){throw err;}
+            res.send('password set');
+        });
+    });
+
+    //remove a password from a session
+    app.put(baseUrl+'/:id/removepassword',function(res,req){
+        Session.setPassword(req.params.id,req.body.password,function(err){
+            if(err){throw err;}
+            res.send('password set');
+        });
+    });
+
 	//open a session
 	app.put(baseUrl+'/:id/open/',function(req,res){
 		Session.setOpen(req.params.id, function(err){

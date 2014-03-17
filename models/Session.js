@@ -8,7 +8,8 @@ var sessionSchema = new Schema({
 	tags: [String],
 	creator: {type:Schema.Types.ObjectId, required:true},
 	open: Boolean,
-	poll: Schema.Types.ObjectId
+	poll: Schema.Types.ObjectId,
+    password:String
 },{collection:'session'});
 
 
@@ -70,6 +71,32 @@ sessionSchema.statics.getAll = function(callback){
 };
 
 /*
+ * add a password to the session
+ * @param {String} id of session
+ * @param {String} password to be added
+ */
+sessionSchema.statics.setPassword  = function(ID,password,callback){
+    this.findOne({_id:ID},function(err,session){
+        if(err){throw err;}
+        session.password = password;
+        session.save(callback);
+    });
+};
+
+/*
+ * remove session password
+ * @param {String} id of session
+ */
+sessionSchema.statics.removePassword  = function(ID,callback){
+    this.findOne({_id:ID},function(err,session){
+        if(err){throw err;}
+        session.password = null;
+        session.save(callback);
+    });
+};
+
+
+/*
  * add a tag to a session
  * @param {String} tag to be added
  */
@@ -86,5 +113,7 @@ sessionSchema.methods.addPoll = function(pollId,callback){
 	this.poll = pollId;
 	this.save(callback);
 };
+
+
 
 mongoose.model('session', sessionSchema);
