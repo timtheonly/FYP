@@ -22,6 +22,7 @@ app.set('view engine','ejs');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(connect.urlencoded());
+app.use(connect.compress());
 app.use(connect.json());
 app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'app')));
