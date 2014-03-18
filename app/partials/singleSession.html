@@ -236,14 +236,33 @@
                 </div>
             </div>
             <div class='tab-pane' id='options'>
-                <div ng-show='!session.poll'>
-                    <button class='btn btn-primary' ng-click='openModal()'>Attach a poll</button>
-                </div>
-                <div class='btn-group-vertical' ng-show='session.poll'>
-                    <button class='btn btn-primary' ng-click='togglePoll()'>{{pollStatus}} poll</button>
-                    <button class='btn btn-primary' ng-click='togglePollLive()'>{{pollLiveStatus}} live results</button>
-                    <button class='btn btn-danger' ng-click='removePoll()'>Remove poll</button>
-                </div>
+                <div class='row'>
+                    <div class='col-md-5'>
+                        <div ng-show='!session.poll'>
+                            <button class='btn btn-primary' ng-click='openModal()'>Attach a poll</button>
+                        </div>
+                        <div class='btn-group-vertical' ng-show='session.poll'>
+                            <button class='btn btn-primary' ng-click='togglePoll()'>{{pollStatus}} poll</button>
+                            <button class='btn btn-primary' ng-click='togglePollLive()'>{{pollLiveStatus}} live results</button>
+                            <button class='btn btn-danger' ng-click='removePoll()'>Remove poll</button>
+                        </div>
+                    </div>
+                    <div class='col-md-5'>
+                        <div ng-show='session.password'>
+                            <div class='input-group'>
+                                <button ng-click='removePassword()' class='btn btn-primary'>Remove Password</button>
+                            </div>
+                        </div>
+                        <div ng-show='!session.password'>
+                            <div class='form-group'>
+                                <label for='password'>Password: </label>
+                                <input type='text' id='password' class='form-control' ng-model='sessionPassword'/>
+                            </div>
+                            <div class='input-group'>
+                                <button ng-click='setPassword()' class='btn btn-primary'>Set Password</button>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>
