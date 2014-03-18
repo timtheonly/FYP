@@ -9,6 +9,9 @@
 	border:1px solid black;
 	margin-bottom: 10px;
 }
+.tab-pane{
+    padding-top: 10px;
+}
 .alternate-bg
 {
     background: #FFFAFA;
