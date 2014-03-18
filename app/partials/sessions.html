@@ -35,11 +35,11 @@
                     <div class='panel-body'>
                         <form class=''>
                              <div class='form-group'>
-                                 <label for='name'>Session name</label>
+                                 <label for='name' data-toggle='tooltip' data-placemnet='top' title='This is the name that is displayed' >Session name</label>
                                  <input type='text' id='name' class='form-control' ng-model='name'/>
                             </div>
                             <div class='form-group'>
-                                <label for='tags'>Tags</label>
+                                <label for='tags' data-toggle='tooltip' data-placemnet='top' title='Tags help users find your session' >Tags</label>
                                     <div ng-repeat='tag in tags track by $index'>
                                        <br/><input type='text' id='tags' ng-model='tags[$index]' class='form-control'/><p ng-model='tag'></p>
                                         <button ng-show='$last' ng-click='removeTag()' class='btn btn-xs btn-primary'><span class='glyphicon glyphicon-minus'></span></button>
@@ -79,11 +79,11 @@
                 <div class='tab-pane' id='create'>
                         <form class=''>
                             <div class='form-group'>
-                                <label for='sesname'>Session name</label>
+                                <label for='sesname' data-toggle='tooltip' data-placemnet='top' title='This is the name that is displayed'>Session name</label>
                                 <input type='text' id='sesname' class='form-control' ng-model='name'/>
                             </div>
                             <div class='form-group'>
-                                <label for='ptags'>Tags</label>
+                                <label for='ptags' data-toggle='tooltip' data-placemnet='top' title='Tags help users find your session'>Tags</label>
                                 <div ng-repeat='tag in tags track by $index'>
                                     <br/><input type='text' id='ptags' ng-model='tags[$index]' class='form-control'/><p ng-model='tag'></p>
                                     <button ng-show='$last' ng-click='removeTag()' class='btn btn-xs btn-primary'><span class='glyphicon glyphicon-minus'></span></button>

@@ -70,7 +70,7 @@
                                                     <button ng-click='removePassword()' class='btn btn-primary'>Remove Password</button>
                                                 </div>
                                             </div>
-                                            <div ng-show='!session.password'>
+                                            <div ng-show='!session.password && session.poll'>
                                                 <div class='form-group'>
                                                     <label for='password'>Password: </label>
                                                     <input type='text' id='password' class='form-control' ng-model='sessionPassword'/>
@@ -253,7 +253,7 @@
                                 <button ng-click='removePassword()' class='btn btn-primary'>Remove Password</button>
                             </div>
                         </div>
-                        <div ng-show='!session.password'>
+                        <div ng-show='!session.password && session.poll'>
                             <div class='form-group'>
                                 <label for='password'>Password: </label>
                                 <input type='text' id='password' class='form-control' ng-model='sessionPassword'/>
