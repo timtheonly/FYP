@@ -11,6 +11,7 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
     $scope.showQuestion = false; //to hide question after submission on live polls
     $scope.pollStatus = 'Open';
     $scope.pollLiveStatus = 'Show';
+    $scope.hideSession = true;
 
     /* used to resolve a scope error created by ng-repeat
      * see: https://github.com/angular/angular.js/issues/1100
@@ -71,6 +72,34 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
     $scope.removePoll = function(){
         socket.emit('poll-remove',{poll:$scope.poll._id, session:$scope.session._id});
         $scope.session.poll = undefined;
+    };
+
+    $scope.setPassword = function(){
+        $http({method:'PUT' , url:'/session/'+$scope.session._id+'/setpassword/'+$scope.sessionPassword})
+            .success(function(data){
+                   if(data === 'password set')
+                   {
+                       $scope.session.password = $scope.sessionPassword;
+                       $scope.sessionPassword = '';
+                   }
+            });
+    };
+
+    $scope.removePassword = function(){
+        $http({method:'PUT' , url:'/session/'+$scope.session._id+'/removepassword'})
+            .success(function(data){
+                if(data === 'password removed')
+                {
+                    $scope.session.password = undefined;
+                    $scope.sessionPassword = '';
+                }
+            });
+    };
+
+    $scope.checkPassword = function(){
+      if($scope.showSessionPassword === $scope.session.password){
+          $scope.hideSession = false;
+      };
     };
 
 	$scope.charsRemaining= function(){
