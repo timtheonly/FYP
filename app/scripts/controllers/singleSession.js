@@ -150,7 +150,7 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
                 }
             }
             $scope.timer();
-        }, 30000);
+        }, 10000);
     };
 
     //call timer once to start it
