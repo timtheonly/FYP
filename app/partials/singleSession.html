@@ -70,7 +70,7 @@
                                                     <button ng-click='removePassword()' class='btn btn-primary'>Remove Password</button>
                                                 </div>
                                             </div>
-                                            <div ng-show='!session.password && session.poll'>
+                                            <div ng-show='!session.password'>
                                                 <div class='form-group'>
                                                     <label for='password'>Password: </label>
                                                     <input type='text' id='password' class='form-control' ng-model='sessionPassword'/>
@@ -237,7 +237,7 @@
             </div>
             <div class='tab-pane' id='options'>
                 <div class='row'>
-                    <div class='col-md-5'>
+                    <div class='col-xs-5'>
                         <div ng-show='!session.poll'>
                             <button class='btn btn-primary' ng-click='openModal()'>Attach a poll</button>
                         </div>
@@ -247,13 +247,13 @@
                             <button class='btn btn-danger' ng-click='removePoll()'>Remove poll</button>
                         </div>
                     </div>
-                    <div class='col-md-5'>
+                    <div class='col-xs-5'>
                         <div ng-show='session.password'>
                             <div class='input-group'>
                                 <button ng-click='removePassword()' class='btn btn-primary'>Remove Password</button>
                             </div>
                         </div>
-                        <div ng-show='!session.password && session.poll'>
+                        <div ng-show='!session.password'>
                             <div class='form-group'>
                                 <label for='password'>Password: </label>
                                 <input type='text' id='password' class='form-control' ng-model='sessionPassword'/>
