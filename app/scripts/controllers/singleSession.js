@@ -196,7 +196,7 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
     /*
      * End Scope functions
      */
-}]).controller('attachPollModal',['$scope','$http','$modalInstance','sessionID','UserID',function($scope, $http, $modalInstance, sessionID, UserID){
+}]).controller('attachPollModal',['$scope','$http','$modalInstance','sessionID','UserID','socket',function($scope, $http, $modalInstance, sessionID, UserID, socket){
         $scope.answers =['','',''];
         $scope.input = {};
 
@@ -220,10 +220,11 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
                 open: true,
                 answers: postAnswers
             })
-                .success(function(data){
-                    data =data.replace(/["]+/g, '');//need to remove double quotes
-                    $http.put('/session/'+sessionID+'/poll/'+data)
+                .success(function(pollData){
+                    pollData =pollData.replace(/["]+/g, '');//need to remove double quotes
+                    $http.put('/session/'+sessionID+'/poll/'+pollData)
                         .success(function(){
+                            socket.emit('new-poll',pollData)
                             $modalInstance.close('success');
                         })
                         .error(function(){

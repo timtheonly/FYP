@@ -27,6 +27,13 @@ module.exports.setup = function(app, mongoose, io){
                });
             });
         });
+
+        socket.on('new-poll',function(id){
+            Poll.findOne({_id:id},function(err,poll){
+                if(err){throw err;}
+                socket.broadcast.to(poll.session).emit('pollUpdate',poll);
+            });
+        });
     });
 
 	//list all sessions
