@@ -63,6 +63,12 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
         $scope.pollLiveStatus = $scope.poll.live ? 'Hide' : 'Show';
     };
 
+    $scope.remove =function(index){
+        if($scope.elevated){
+            $scope.questions.splice(index,1);
+        }
+    };
+
     $scope.togglePoll = function(){
         socket.emit('poll-toggle',$scope.poll._id);
         $scope.poll.open = !$scope.poll.open;

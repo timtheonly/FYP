@@ -5,7 +5,7 @@
         <div class='col-lg-7'>
             <div class='questionBox'>
                 <div class='list-group'>
-                    <div class='list-group-item' ng-repeat='question in questions'>
+                    <div class='list-group-item' ng-repeat='question in questions' ng-dblclick='remove($index)'>
                         <div class='row'>
                             <div class='col-md-6 col-xs-6 col-sm-6'>
                                 <h5>{{question.body}}</h5>
@@ -148,7 +148,7 @@
                     <div class='questionBox'>
                         <div class='list-group'>
                             <div class='list-group-item' ng-repeat='question in questions'>
-                                <div class='row'>
+                                <div class='row' ng-dblclick='remove($index)'>
                                     <div class='col-md-6 col-xs-6 col-sm-6'>
                                         <h5>{{question.body}}</h5>
                                     </div>
