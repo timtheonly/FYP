@@ -67,14 +67,6 @@ module.exports.setup = function(app, mongoose, io){
 		});
 	});
 
-	//add answer
-	app.put(baseUrl+'/:id/answer/',function(req,res){
-		Poll.addAnswer(req.body.answer,req.params.id,function(err){
-			if(err){throw err;}
-			res.send('answer added');
-		});
-	});
-
 	//save a poll response
 	app.put(baseUrl+'/:id/:response',function(req,res){
 		Poll.input(req.params.id,req.params.response,function(err){

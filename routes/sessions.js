@@ -86,7 +86,7 @@ module.exports.setup = function(app, mongoose, io){
                         });
 					});
 				}else{
-					res.send('session not found');
+					res.send('Poll not found');
 				}
 			}
 		});
@@ -96,7 +96,7 @@ module.exports.setup = function(app, mongoose, io){
 	app.post(baseUrl,function(req,res){
 		//validate the data before inserting it into the db
 
-		//taken from https://github.com/mongodb/js-bson/blob/master/lib/bson/objectid.js
+		//regex taken from https://github.com/mongodb/js-bson/blob/master/lib/bson/objectid.js
 		var objectIDRegex = new RegExp('^[0-9a-fA-F]{24}$');
 		var pass;
 		var tempSession;
@@ -156,22 +156,6 @@ module.exports.setup = function(app, mongoose, io){
             res.send('password removed');
         });
     });
-
-	//open a session
-	app.put(baseUrl+'/:id/open/',function(req,res){
-		Session.setOpen(req.params.id, function(err){
-			if(err){throw err;}
-			res.send('session opened');
-		});
-	});
-
-	//close a session
-	app.put(baseUrl+'/:id/close/',function(req,res){
-		Session.setClosed(req.params.id, function(err){
-			if(err){throw err;}
-			res.send('session closed');
-		});
-	});
 
 	//delete a session
 	app.delete(baseUrl+'/:id', function(req,res){
