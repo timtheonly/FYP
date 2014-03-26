@@ -4,7 +4,7 @@
   	 	<div class='alert alert-success' ng-show='createdAccount'>Your account was created</div>
   	 	<div class='alert alert-warning' ng-show='usernameExists'>An account with that username already exists</div>
   	 	<div class='alert alert-warning' ng-show='errorHappened'>Oops! somthing went wrong please try again</div>
-  	 	<form class='form-horizontal' name='signup' novalidate >
+         <form class='form-horizontal' name='signup' novalidate >
 	  	 	<div class='input-group'>
 	  	 		<input class='form-control' type='text' placeholder='Name'  ng-model='input.name'/>
 	  	 	</div>
@@ -39,12 +39,14 @@
                 </div>
 
             </div>
-        </form>
+
 
   	 	
-  	 <div class='modal-footer'>
-  	 	<button  class='btn btn-danger' ng-click='cancel()' >cancel</button>
-  	 	<button  class='btn btn-success' ng-click='ok()' >Sign me up</button>
-  	 </div>
+  	        <div class='modal-footer'>
+  	 	        <button  class='btn btn-danger' ng-click='cancel()' >cancel</button>
+  	        	<button  class='btn btn-success' ng-click='ok()' >Sign me up</button>
+  	        </div>
+
+         </form>
    </div>
     </div>

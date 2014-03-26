@@ -63,6 +63,12 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
         $scope.pollLiveStatus = $scope.poll.live ? 'Hide' : 'Show';
     };
 
+    $scope.remove =function(index){
+        if($scope.elevated){
+            $scope.questions.splice(index,1);
+        }
+    };
+
     $scope.togglePoll = function(){
         socket.emit('poll-toggle',$scope.poll._id);
         $scope.poll.open = !$scope.poll.open;
@@ -150,7 +156,7 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
                 }
             }
             $scope.timer();
-        }, 30000);
+        }, 10000);
     };
 
     //call timer once to start it
@@ -190,7 +196,7 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
     /*
      * End Scope functions
      */
-}]).controller('attachPollModal',['$scope','$http','$modalInstance','sessionID','UserID',function($scope, $http, $modalInstance, sessionID, UserID){
+}]).controller('attachPollModal',['$scope','$http','$modalInstance','sessionID','UserID','socket',function($scope, $http, $modalInstance, sessionID, UserID, socket){
         $scope.answers =['','',''];
         $scope.input = {};
 
@@ -214,10 +220,11 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
                 open: true,
                 answers: postAnswers
             })
-                .success(function(data){
-                    data =data.replace(/["]+/g, '');//need to remove double quotes
-                    $http.put('/session/'+sessionID+'/poll/'+data)
+                .success(function(pollData){
+                    pollData =pollData.replace(/["]+/g, '');//need to remove double quotes
+                    $http.put('/session/'+sessionID+'/poll/'+pollData)
                         .success(function(){
+                            socket.emit('new-poll',pollData)
                             $modalInstance.close('success');
                         })
                         .error(function(){
