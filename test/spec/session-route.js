@@ -87,25 +87,4 @@ describe('#routes test /session', function(){
 			});
 		});
 	});
-
-	it('should allow a session to be opened',function(done){
-		http.put('http://localhost:9000/session/'+sessionID+'/open/').
-		end(function(res){
-			expect(res).to.exist;
-			expect(res.status).to.equal(200);
-			expect(res.text).to.equal('session opened');
-			done();
-		});
-	});
-
-	it('should allow a session to be closed',function(done){
-		http.put('http://localhost:9000/session/'+sessionID+'/close/').
-		end(function(res){
-			expect(res).to.exist;
-			expect(res.status).to.equal(200);
-			expect(res.text).to.equal('session closed');
-			done();
-		});
-	});
-
 });

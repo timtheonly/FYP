@@ -30,8 +30,8 @@ describe('#routes test /user', function(){
 	it('should allow a user to be created',function(done){
 		http.post('http://localhost:9000/users')
 		.send({
-			name: 'daniel',
-			username: 'test',
+			name: 'dan',
+			username: 'test1',
 			password: 'blah',
 			email:'the@mail.com',
 			elevated: true
@@ -39,8 +39,8 @@ describe('#routes test /user', function(){
 		.end(function(err,res){
 			expect(res).to.exist;
 			expect(res.status).to.equal(200);
-			expect(res.text).to.equal('ok');
-			http.del('http://localhost:9000/users/test',function(err2,res2){
+			expect(res.text).to.equal('ok');delete
+			http.del('http://localhost:9000/users/test1',function(err2,res2){
 				expect(res2).to.exist;
 				expect(res2.status).to.equal(200);
 				expect(res2.text).to.equal('ok');
