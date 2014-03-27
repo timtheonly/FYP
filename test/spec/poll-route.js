@@ -12,7 +12,7 @@ describe('#routes test /poll', function(){
 		.send({
 			creator:'52e6d0174d61ba401d00004b',
 			question:'isn\'t javascript cool',
-			answers:['yeah','hells yeah','nope'],
+			answers:[{answer:'yeah', response:0},{answer:'hells yeah', response:0},{answer:'nope', response:0}],
 			open:true
 		})
 		.end(function(res){
@@ -27,6 +27,7 @@ describe('#routes test /poll', function(){
 			done();
 		});
 	});
+
 
 	it('should list all polls', function(done){
 		http.get('http://localhost:9000/poll')
@@ -44,6 +45,7 @@ describe('#routes test /poll', function(){
 		});
 	});
 
+
 	it('should list all global polls', function(done){
 		http.get('http://localhost:9000/poll/globals')
 		.end(function(res){
@@ -54,11 +56,11 @@ describe('#routes test /poll', function(){
 
 	it('should create a poll', function(done){
 		var tempPollId;
-		http.post('http://localhost:9000/poll')
+		http.post('http://localhost:9000/poll/')
 		.send({
 			creator:'52e6d0174d61ba401d00004b',
 			question:'isn\'t javascript cool',
-			answers:['yeah','hells yeah','nope'],
+			answers:[{answer:'yeah', response:0},{answer:'hells yeah', response:0},{answer:'nope', response:0}],
 			open:true
 		}).end(function(res){
 			expect(res).to.exist;
@@ -66,7 +68,7 @@ describe('#routes test /poll', function(){
 			tempPollId = res.body;
 			http.del('http://localhost:9000/poll/' +tempPollId+'/')
 			.end(function(){
-				done();
+                done();
 			});
 		});
 	});
@@ -77,7 +79,7 @@ describe('#routes test /poll', function(){
 		.send({
 			creator:'52e6d0174d61ba401d00004b',
 			question:'isn\'t javascript cool',
-			answers:['yeah','hells yeah','nope'],
+			answers:[{answer:'yeah', response:0},{answer:'hells yeah', response:0},{answer:'nope', response:0}],
 			open:true
 		}).end(function(res){
 			tempPollId = res.body;
@@ -86,23 +88,6 @@ describe('#routes test /poll', function(){
 				expect(res2).to.exist;
 				expect(res2.status).to.equal(200);
 				expect(res2.text).to.equal('poll deleted');
-				done();
-			});
-		});
-	});
-
-	it('should allow the addition of an answer',function(done){
-		http.put('http://localhost:9000/poll/'+pollID+'/answer/')
-		.send({
-			answer: 'meh'
-		})
-		.end(function(res){
-			expect(res).to.exist;
-			expect(res.status).to.equal(200);
-			expect(res.text).to.equal('answer added');
-			http.get('http://localhost:9000/poll/'+pollID+'/')
-			.end(function(res2){
-				expect(res2.body.answers.toString()).to.equal(['yeah','hells yeah','nope','meh'].toString());
 				done();
 			});
 		});

@@ -87,7 +87,6 @@ module.exports.setup = function(app, mongoose, io){
 
 	//create a new poll
 	app.post(baseUrl,function(req,res){
-
 		//regex taken from https://github.com/mongodb/js-bson/blob/master/lib/bson/objectid.js
 		var objectIDRegex = new RegExp('^[0-9a-fA-F]{24}$');
 		var pass = true;

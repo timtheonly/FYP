@@ -148,10 +148,5 @@ pollSchema.statics.delete = function(ID,callback){
 	this.remove({_id:ID},callback);
 };
 
-/*
- * toggle whether a poll is live
- * @param {String} poll id
- */
-
 
 mongoose.model('poll', pollSchema);
