@@ -66,16 +66,13 @@ describe('#class Poll', function(){
 		});
 	});
 
-	it('should allow a poll to be opened',function(done){
-		expect(myPoll.open).to.be.false;
-		myPoll.open = true;
-		myPoll.save(function(err){
-			if(err){done(err);}
-			expect(myPoll.open).to.be.true;
-			done();
-		});
+    it('should list all  polls',function(done){
+        Poll.listAll(function(err,data){
+            expect(data).to.be.an.Array;
+            done();
+        });
+    });
 
-	});
 
 	it('should allow a poll to be opened by ID',function(done){
 		Poll.setOpen(ID,function(err,poll){
@@ -95,14 +92,6 @@ describe('#class Poll', function(){
 		});
 	});
 
-	it('should allow the addition of an answer',function(done){
-		Poll.addAnswer('whom',ID,function(err, poll){
-			if(err){done(err);}
-			myPoll = poll;
-			expect(myPoll.answers.length).to.equal(5);
-			done();
-		});
-	});
 
     it('should allow the submission of a response', function(done){
         Poll.input(ID, 'me', function(err,poll){
@@ -111,6 +100,14 @@ describe('#class Poll', function(){
             expect(myPoll.answers[1].response).to.equal(1);
             done();
         });
+    });
+
+    it('should allow a polls live status to be toggled',function(done){
+        Poll.toggleLive(ID,function(err,poll){
+            if(err){done(err);}
+            expect(poll.live).to.equal(!myPoll.live);
+            done();
+        })
     });
 });
 

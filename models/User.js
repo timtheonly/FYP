@@ -99,7 +99,10 @@ userSchema.statics.elevate = function(id,callback){
     this.findOne({_id:id},function(err, user){
         if(err){return callback(err);}
         user.elevated = true;
-        user.save(callback);
+        user.save(function(err){
+            if(err){return callback(err);}
+            return callback(null,user);
+        });
     });
 } ;
 

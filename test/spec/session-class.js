@@ -38,14 +38,6 @@ describe('#class Session', function(){
 	});
 	
 
-	it('should allow tag to be added',function(done){
-		mySession.addTag('bad ass',function(err){
-			if(err){done(err);}
-			expect(mySession.tags.length).to.equal(4);
-			expect(mySession.tags.toString()).to.equal(['super','awesome', 'session', 'bad ass'].toString());
-			done();
-		});
-	});
 	
 	it('should allow all sessions to be listed',function(done){
 		Session.getAll(function(err,sessions){
@@ -74,12 +66,34 @@ describe('#class Session', function(){
 	});
 
 	it('should allow a session to be closed by id',function(done){
-			Session.setClosed(mySession._id, function(err,session){
-			if(err){done(err);}
-			mySession = session;
-			expect(mySession.open).to.be.false;
-			done();
+        Session.setClosed(mySession._id, function(err,session){
+            if(err){done(err);}
+            mySession = session;
+            expect(mySession.open).to.be.false;
+            done();
 		});
 	});
+
+    it('should allow a password to be set on a session', function(done){
+        Session.setPassword(mySession._id,'apples',function(err,newSession){
+            if(err){done(err);}
+            mySession = newSession;
+            expect(mySession.password).to.equal('apples');
+            done();
+        });
+    });
+
+    it('should allow a password to be removed from a session', function(done){
+        Session.setPassword(mySession._id,'apples',function(err,newSession){
+            if(err){done(err);}
+            mySession = newSession;
+            expect(mySession.password).to.equal('apples');
+            Session.removePassword(mySession._id,function(err,newSession){
+                mySession = newSession;
+                expect(mySession.password).to.be.null;
+                done();
+            });
+        });
+    });
 
 });

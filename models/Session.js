@@ -13,13 +13,6 @@ var sessionSchema = new Schema({
 },{collection:'session'});
 
 
-/*
- * list all sessions
- * @param {Function} callback
- */
-sessionSchema.statics.getAll = function(callback){
-	this.find({},callback);
-};
 
 /*
  * set a poll to open using id
@@ -84,7 +77,10 @@ sessionSchema.statics.setPassword  = function(ID,password,callback){
     this.findOne({_id:ID},function(err,session){
         if(err){throw err;}
         session.password = password;
-        session.save(callback);
+        session.save(function(err){
+           if(err){return callback(err);}
+           return callback(null,session);
+        });
     });
 };
 
@@ -97,19 +93,11 @@ sessionSchema.statics.removePassword  = function(ID,callback){
     this.findOne({_id:ID},function(err,session){
         if(err){throw err;}
         session.password = null;
-        session.save(callback);
+        session.save(function(err){
+            if(err){return callback(err);}
+            return callback(null,session);
+        });
     });
-};
-
-
-/*
- * add a tag to a session
- * @param {String} tag to be added
- * @param {Function} callback
- */
-sessionSchema.methods.addTag = function(tag,callback){
-	this.tags.push(tag);
-	this.save(callback);
 };
 
 /*
