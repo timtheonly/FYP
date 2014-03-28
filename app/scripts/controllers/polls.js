@@ -1,10 +1,21 @@
 'use strict';
 
 angular.module('fypApp').controller('pollsCtrl',['$scope','$http','UserFactory',function($scope, $http, UserFactory){
+    /*
+     * Scope initialization
+     */
+
     $scope.user = UserFactory.get();
     $scope.answers = ['','',''];
     $scope.showForm = false;
 
+    /*
+     * End scope initialization
+     */
+
+    /*
+     * scope functions
+     */
     $scope.ok = function(){
         var postAnswers = [];
 
@@ -43,4 +54,7 @@ angular.module('fypApp').controller('pollsCtrl',['$scope','$http','UserFactory',
         });
     };
     $scope.refresh();
+    /*
+     * End scope functions
+     */
 }]);

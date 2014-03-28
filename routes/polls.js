@@ -5,7 +5,7 @@ require('../models/Poll');
 module.exports.setup = function(app, mongoose, io){
 
 	/*
-	 * Session routes
+	 * poll routes
 	 */
 	var Poll = mongoose.model('poll');
 	var baseUrl = '/poll';
@@ -36,6 +36,7 @@ module.exports.setup = function(app, mongoose, io){
 		});
 	});
 
+    //get a single poll
 	app.get(baseUrl+'/:id/',function(req,res){
 		Poll.findOne({_id:req.params.id},function(err,poll){
 			if(err){throw err;}

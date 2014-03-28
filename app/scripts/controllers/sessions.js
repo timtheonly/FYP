@@ -1,10 +1,19 @@
 'use strict';
 
 angular.module('fypApp').controller('sessionsCtrl',[ '$scope','$http','UserFactory','$window',function($scope, $http, UserFactory, $window){
+    /*
+     * Scope initialization
+     */
     $scope.user = UserFactory.get();
     $scope.showForm = false;
     $scope.tags = ['','',''];
+    /*
+     * End scope initialization
+     */
 
+    /*
+     * scope functions
+     */
     $scope.removeTag = function(){
         $scope.tags.pop();
     };
@@ -42,4 +51,8 @@ angular.module('fypApp').controller('sessionsCtrl',[ '$scope','$http','UserFacto
 
 
     $scope.refresh();
+
+    /*
+     * End Scope functions
+     */
 }]);

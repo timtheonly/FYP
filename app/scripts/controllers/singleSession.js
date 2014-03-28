@@ -197,9 +197,20 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
      * End Scope functions
      */
 }]).controller('attachPollModal',['$scope','$http','$modalInstance','sessionID','UserID','socket',function($scope, $http, $modalInstance, sessionID, UserID, socket){
+        /*
+         * Scope initialization
+         */
+
         $scope.answers =['','',''];
         $scope.input = {};
 
+        /*
+         * End scope initialization
+         */
+
+        /*
+         * scope functions
+         */
         $scope.addAnswer=function(){
             $scope.answers.push('');
         };
@@ -236,4 +247,7 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
         $scope.cancel = function(){
             $modalInstance.close('canceled');
         };
+        /*
+         * End Scope functions
+         */
 }]);

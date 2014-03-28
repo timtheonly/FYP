@@ -1,7 +1,18 @@
 'use strict';
 
 angular.module('fypApp').controller('loginCtrl',['$scope', '$http', '$modal', '$window',function($scope, $http, $modal, $window){
-	$scope.hasMessage = false;
+     /*
+     * Scope initialization
+     */
+    $scope.hasMessage = false;
+
+    /*
+     * End scope initialization
+     */
+
+    /*
+     * scope functions
+     */
 	$scope.login = function(){
 		$http.post('/users/login', {username: $scope.username, password: $scope.password})
 		.success(function(data){
@@ -25,8 +36,23 @@ angular.module('fypApp').controller('loginCtrl',['$scope', '$http', '$modal', '$
              keyboard: false
         });
 	};
+    /*
+     * End Scope functions
+     */
 }]).controller('ModalCtrl', ['$scope', '$http', '$modalInstance', function($scope, $http, $modalInstance){
-	$scope.input ={};
+    /*
+     * Scope initialization
+     */
+
+   	$scope.input ={};
+
+    /*
+     * End scope initialization
+     */
+
+    /*
+     * scope functions
+     */
 	$scope.ok = function(){
         $http.post('/users',$scope.input)
             .success(function(data){
@@ -50,4 +76,8 @@ angular.module('fypApp').controller('loginCtrl',['$scope', '$http', '$modal', '$
 	$scope.cancel = function(){
 		$modalInstance.close('canceled');
 	};
+
+    /*
+     * End Scope functions
+     */
 }]);

@@ -38,6 +38,7 @@ userSchema.pre('save', function(next){
 /*
  *	check an unencrypted password against the stored encrypted one
  *	@param {string} unencrypted password to check against
+ *  @param {Function} callback
  */
 userSchema.methods.verifyPassword = function(inputPassword, callback){
 	bcrypt.compare(inputPassword, this.password, function(err,match){
@@ -49,7 +50,7 @@ userSchema.methods.verifyPassword = function(inputPassword, callback){
 /*
  *	if user exists and a valid password is supplied return the user otherwise null
  *	@param {string} the users username
- *	@param {string} the users pasword unencrypted
+ *	@param {string} the users password unencrypted
  *	@param {function} callback when finished
  * 	Comment: could really use enums for error types
  *  further Comment: enums not available in JavaScript	
@@ -78,6 +79,10 @@ userSchema.statics.authenicate = function(username, password, callback){
 	});
 };
 
+/*
+ * list all users
+ * @param {Function} callback
+ */
 userSchema.statics.list = function(callback){
     this.find({},{password:0},function(err,users){
         if(err){return callback(err);}
@@ -85,6 +90,11 @@ userSchema.statics.list = function(callback){
     });
 };
 
+/*
+ * elevate a given user
+ * @param {String} user id
+ * @param {Function} callback
+ */
 userSchema.statics.elevate = function(id,callback){
     this.findOne({_id:id},function(err, user){
         if(err){return callback(err);}
@@ -93,6 +103,13 @@ userSchema.statics.elevate = function(id,callback){
     });
 } ;
 
+/*
+ * remove a given user
+ *
+ * **dev only**
+ * @param {String} username
+ * @param {Function} callback
+ */
 userSchema.statics.delete = function(usr,callback){
 	this.remove({username: usr},callback);
 };

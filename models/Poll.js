@@ -129,11 +129,10 @@ pollSchema.statics.input = function(ID,response,callback){
 };
 
 /*
- * delete the given Poll
+ * toggle the live state of a given poll
  * @param {string} poll id
  *
  */
-
 pollSchema.statics.toggleLive = function(ID,callback){
     this.findOne({_id:ID}, function(err, poll){
         if(err){callback(err);}
@@ -144,6 +143,12 @@ pollSchema.statics.toggleLive = function(ID,callback){
         });
     });
 };
+
+/*
+ * delete a given poll
+ * @param {string} poll id
+ *
+ */
 pollSchema.statics.delete = function(ID,callback){
 	this.remove({_id:ID},callback);
 };

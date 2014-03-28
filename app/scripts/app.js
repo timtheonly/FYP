@@ -37,21 +37,28 @@ angular.module('fypApp', [
 			title:'Poll'
 		});
 
-}]).factory('UserFactory',function(){
-	var user ={};
-	return{
-		get: function(){
-			return user;
-		},
+}])
+    /*
+    * Factory to store user data throughout the system
+    */
+    .factory('UserFactory',function(){
+        var user ={};
+        return{
+            get: function(){
+                return user;
+            },
 
-		set: function(value){
-			angular.copy(value,user);
-		}
-	};
+            set: function(value){
+                angular.copy(value,user);
+            }
+        };
 })
-.controller('titleCtrl',['$scope', '$route', function($scope,$route){//a controller to change the page title when the route changes
-	$scope.title = 'Welcome';
-	$scope.$on('$routeChangeSuccess',function(){
-		$scope.title = $route.current.title;
-	});
+    /*
+     *   A controller to change the page title when the route changes
+     */
+    .controller('titleCtrl',['$scope', '$route', function($scope,$route){
+        $scope.title = 'Welcome';
+        $scope.$on('$routeChangeSuccess',function(){
+            $scope.title = $route.current.title;
+        });
 }]);

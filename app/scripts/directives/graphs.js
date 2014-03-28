@@ -57,8 +57,7 @@ angular.module('fypApp')
         scope:{
             values :'=',
             width:'=',
-            height:'=',
-            use:'='
+            height:'='
         },
         link:function(scope,element){
             element.append('<svg class="pie" width="'+scope.width+'" height="'+scope.height+'"></svg>');
@@ -99,8 +98,7 @@ angular.module('fypApp')
             scope:{
                 values :'=',
                 width:'=',
-                height:'=',
-                use:'='
+                height:'='
             },
             link:function(scope,element){
                 element.append('<svg class="donut" width="'+scope.width+'" height="'+scope.height+'"></svg>');

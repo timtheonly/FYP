@@ -15,7 +15,7 @@ var sessionSchema = new Schema({
 
 /*
  * list all sessions
- *
+ * @param {Function} callback
  */
 sessionSchema.statics.getAll = function(callback){
 	this.find({},callback);
@@ -24,6 +24,7 @@ sessionSchema.statics.getAll = function(callback){
 /*
  * set a poll to open using id
  * @param {string} poll id
+ * @param {Function} callback
  *
  */
 sessionSchema.statics.setOpen = function(ID,callback){
@@ -40,6 +41,7 @@ sessionSchema.statics.setOpen = function(ID,callback){
 /*
  * set a poll to closed using id
  * @param {string} poll id
+ * @param {Function} callback
  *
  */
 sessionSchema.statics.setClosed = function(ID,callback){
@@ -56,6 +58,7 @@ sessionSchema.statics.setClosed = function(ID,callback){
 /*
  * delete the given Session
  * @param {string} session id
+ * @param {Function} callback
  *
  */
 sessionSchema.statics.delete = function(ID,callback){
@@ -65,6 +68,7 @@ sessionSchema.statics.delete = function(ID,callback){
 
 /*
  * list all sessions
+ * @param {Function} callback
  */
 sessionSchema.statics.getAll = function(callback){
 	this.find({},callback);
@@ -74,6 +78,7 @@ sessionSchema.statics.getAll = function(callback){
  * add a password to the session
  * @param {String} id of session
  * @param {String} password to be added
+ * @param {Function} callback
  */
 sessionSchema.statics.setPassword  = function(ID,password,callback){
     this.findOne({_id:ID},function(err,session){
@@ -86,6 +91,7 @@ sessionSchema.statics.setPassword  = function(ID,password,callback){
 /*
  * remove session password
  * @param {String} id of session
+ * @param {Function} callback
  */
 sessionSchema.statics.removePassword  = function(ID,callback){
     this.findOne({_id:ID},function(err,session){
@@ -99,6 +105,7 @@ sessionSchema.statics.removePassword  = function(ID,callback){
 /*
  * add a tag to a session
  * @param {String} tag to be added
+ * @param {Function} callback
  */
 sessionSchema.methods.addTag = function(tag,callback){
 	this.tags.push(tag);
@@ -108,6 +115,7 @@ sessionSchema.methods.addTag = function(tag,callback){
 /*
  * add a Poll to the session
  * @param {String} id of poll to be added
+ * @param {Function} callback
  */
 sessionSchema.methods.addPoll = function(pollId,callback){
 	this.poll = pollId;

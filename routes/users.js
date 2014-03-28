@@ -72,6 +72,7 @@ module.exports.setup = function(app, mongoose){
         });
     });
 
+    //update the users password
     app.put(baseUrl+'/password', function(req,res){
         User.authenicate(req.body.username,req.body.password,function(err, user){
             if(err)

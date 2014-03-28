@@ -1,10 +1,20 @@
 'use strict';
 
 angular.module('fypApp').controller('settingsCtrl',['$scope','$http','UserFactory',function($scope, $http, UserFactory){
+    /*
+     * Scope initialization
+     */
     $scope.user = UserFactory.get();
     $scope.hasMessage = false;
     $scope.success = false;
+    /*
+     * End scope initialization
+     */
 
+
+    /*
+     * scope functions
+     */
     $scope.refresh  = function(){
         $http.get('/users')
             .success(function(data){
@@ -46,4 +56,7 @@ angular.module('fypApp').controller('settingsCtrl',['$scope','$http','UserFactor
     };
 
     $scope.refresh();
+    /*
+     * End Scope functions
+     */
 }]);
