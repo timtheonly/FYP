@@ -87,4 +87,46 @@ describe('#routes test /session', function(){
 			});
 		});
 	});
+
+    it('should allow a session to have a password set',function(done){
+       http.put('http://localhost:9000/session/'+sessionID+'/setpassword/password')
+           .end(function(res){
+               expect(res).to.exist;
+               expect(res.status).to.equal(200);
+               expect(res.text).to.equal('password set');
+               done();
+           });
+    });
+
+    it('should allow a password to be removed from a session',function(done){
+        http.put('http://localhost:9000/session/'+sessionID+'/removepassword')
+            .end(function(res){
+                expect(res).to.exist;
+                expect(res.status).to.equal(200);
+                expect(res.text).to.equal('password removed');
+                done();
+            });
+    });
+
+    it('should allow a poll to be attached',function(done){
+        var pollid;
+        http.post('http://localhost:9000/poll')
+            .send({
+                creator:'52e6d0174d61ba401d00004b',
+                question:'isn\'t javascript cool',
+                answers:[{answer:'yeah', response:0},{answer:'hells yeah', response:0},{answer:'nope', response:0}],
+                open:true
+            })
+            .end(function(res){
+               pollid = res.body;
+               http.put('http://localhost:9000/session/'+sessionID+'/poll/'+pollid)
+                   .end(function(res){
+                       expect(res).to.exist;
+                       expect(res.status).to.equal(200);
+                       expect(res.text).to.equal('poll added');
+                       done();
+                   });
+            });
+
+    });
 });

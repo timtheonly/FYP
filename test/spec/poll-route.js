@@ -92,4 +92,14 @@ describe('#routes test /poll', function(){
 			});
 		});
 	});
+
+    it('should allow a response to a poll',function(done){
+        http.put('http://localhost:9000/poll/'+pollID+'/yeah')
+            .end(function(res){
+                expect(res).to.exist;
+                expect(res.status).to.equal(200);
+                expect(res.text).to.equal('response noted');
+                done();
+            });
+    });
 });

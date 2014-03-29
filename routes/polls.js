@@ -52,22 +52,6 @@ module.exports.setup = function(app, mongoose, io){
 		});
 	});
 
-	//open a poll
-	app.put(baseUrl+'/:id/open/',function(req,res){
-		Poll.setOpen(req.params.id, function(err){
-			if(err){throw err;}
-			res.send('poll opened');
-		});
-	});
-
-	//close a poll
-	app.put(baseUrl+'/:id/close/',function(req,res){
-		Poll.setClosed(req.params.id, function(err){
-			if(err){throw err;}
-			res.send('poll closed');
-		});
-	});
-
 	//save a poll response
 	app.put(baseUrl+'/:id/:response',function(req,res){
 		Poll.input(req.params.id,req.params.response,function(err){

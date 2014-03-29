@@ -235,7 +235,7 @@ angular.module('fypApp').controller('singleSessionCrtl',['$scope','$http','$rout
                     pollData =pollData.replace(/["]+/g, '');//need to remove double quotes
                     $http.put('/session/'+sessionID+'/poll/'+pollData)
                         .success(function(){
-                            socket.emit('new-poll',pollData)
+                            socket.emit('new-poll',pollData);
                             $modalInstance.close('success');
                         })
                         .error(function(){

@@ -39,7 +39,7 @@ describe('#routes test /user', function(){
 		.end(function(err,res){
 			expect(res).to.exist;
 			expect(res.status).to.equal(200);
-			expect(res.text).to.equal('ok');delete
+			expect(res.text).to.equal('ok');
 			http.del('http://localhost:9000/users/test1',function(err2,res2){
 				expect(res2).to.exist;
 				expect(res2.status).to.equal(200);
@@ -62,6 +62,36 @@ describe('#routes test /user', function(){
 			done();
 		});
 	});
+
+    it('should list all users of the system',function(done){
+        http.get('http://localhost:9000/users')
+            .end(function(err,res){
+               expect(res).to.exist;
+               expect(res.status).to.equal(200);
+               expect(res.body).to.be.Array;
+               done();
+            });
+    });
+
+    it('should return a logged in users data', function(done){
+        var agent = http.agent();
+        agent.post('http://localhost:9000/users/login').
+            send({
+                username:'testuser',
+                password:'blah'
+            })
+            .end(function(err,res){
+                agent.saveCookies(res);
+                var req = agent.get('http://localhost:9000/user');
+                agent.attachCookies(req);
+                req.end(function(err,res){
+                    expect(res).to.exist;
+                    expect(res.status).to.equal(200);
+                    expect(res.body).to.be.Object;
+                    done();
+                });
+            });
+    });
 
 	it('should not allow a user to login with incorrect password', function(done){
 		http.post('http://localhost:9000/users/login').
