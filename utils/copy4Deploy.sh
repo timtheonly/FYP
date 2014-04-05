@@ -1,25 +1,31 @@
 #!/bin/bash
-#copy all project files to a seperate directory for deployment
-cd ~/git/FYP
+# script name: copy4deploy.sh
+#
+#purpose: Build and Copy all project files to a separate directory for deployment
+
 
 grunt build
 
 
 #root
-cp -ru ~/git/FYP/server.js ~/git/FYP-heroku/server.js
-cp -ru ~/git/FYP/package.json ~/git/FYP-heroku/package.json
+#cp   -ru  server.js ../deploy/server.js
+#cp -ruP  package.json ../deploy/package.json
 
 #app
-cp -ru ~/git/FYP/app/partials/* ~/git/FYP-heroku/app/partials/
-cp -ru ~/git/FYP/app/fonts/* ~/git/FYP-heroku/app/fonts/
-cp -ru ~/git/FYP/app/images/* ~/git/FYP-heroku/app/images/
-cp -ru ~/git/FYP/dist/main.min.css ~/git/FYP-heroku/app/styles/
-cp -ru ~/git/FYP/dist/app.min.js ~/git/FYP-heroku/app/scripts/app.min.js
+cp  --parents -ru app/partials/* ../deploy/app/partials/
+#cp -ruP app/fonts/* ../deploy/app/fonts/
+#cp -ruP  app/images/* ../deploy/app/images/
+
+#copy over minified versions
+#cp -ruP dist/main.min.css ../deploy/app/styles/
+#cp -ruP dist/app.min.js ../deploy/app/scripts/app.min.js
 
 #models
-cp -ru ~/git/FYP/models/* ~/git/FYP-heroku/models/
+#cp  -ruP  models/* ../deploy/models/
 
 #routes
-cp -ru ~/git/FYP/routes/* ~/git/FYP-heroku/routes/
+#cp -ruP routes/* ../deploy/routes/
 
-rm -rf ~/git/FYP/dist/
+rm -rf dist/
+
+echo "project built in deploy"

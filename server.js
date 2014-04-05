@@ -62,16 +62,24 @@ io.sockets.on('connection', function(socket){
       });
   });
 // Routes
-//dynamically include all routes
+// dynamically include all routes
+// loosely based an answer to a stack overflow question; answer posted by @sachin
+// http://www.stackoverflow.com/questions/16784129/dynamically-load-routes-with-express-js
 fs.readdirSync('./routes').forEach(function(filename){
-  if(filename.substr(-3) === '.js')
-  {
-    require('./routes/'+filename).setup(app,mongoose, io);
-  }
+    if(filename.substr(-3) === '.js')
+    {
+        require('./routes/'+filename).setup(app,mongoose, io);
+    }
 });
 
 //handle 404 error
 app.use(function(req, res){
   res.render(404,'404');
 });
+
+
+
+
+
+
 
