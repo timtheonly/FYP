@@ -1,0 +1,23 @@
+Steps involved in setting up this project.
+
+This project assumes an linux enviroment, with mongodb and node with npm installed
+
+1. firstly cd into the directory containing the project
+
+2. install client side dependencies for this bower is required
+	-bower can be installed by using npm install -g bower
+	-next install the dependences using bower install
+	
+3. install server side dependences using 'npm install' (this may take a while)
+	-npm may complain that Bcrypt didn't install properly ensure that openssl is available on the machine and run 'npm install' again
+	
+4. once the dependencies are installed the server can be started using 'npm start'
+
+5. to run tests for the project
+	- use npm test
+	- this requires mocha. mocha can be installed using 'npm install -g mocha'
+
+6. to build the project for release run the script copy4deploy.sh in the utils directory
+	- enter this command utils/copy4depoly.sh
+	- this requires grunt-cli. grunt can be installed using npm install 'npm install -g grunt-cli'
+	- the build path is '../deploy'
